@@ -1,0 +1,19 @@
+﻿
+=============================== Coverage summary ===============================
+Statements   : 45.07% ( 1071/2376 )
+Branches     : 29.21% ( 485/1660 )
+Functions    : 44.25% ( 127/287 )
+Lines        : 45.87% ( 963/2099 )
+================================================================================
+node.exe : 
+Au caractère Ligne:1 : 1
++ & "C:\Program Files\nodejs/node.exe" "C:\Program Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Test Suites: 17 passed, 17 total
+Tests:       182 passed, 182 total
+Snapshots:   0 total
+Time:        6.786 s
+Ran all test suites in 2 projects.

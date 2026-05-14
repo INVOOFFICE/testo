@@ -49,6 +49,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Escape') closeMobActionsSheet();
   });
 
+  // ════════════════════════════════════════
+  //  MOBILE SIDEBAR — Fermer au clic sur l'overlay
+  // ════════════════════════════════════════
+  document.getElementById('sidebar-overlay')?.addEventListener('click', () => {
+    if (window.innerWidth <= 768) closeMobSidebar();
+  });
+
   document.querySelectorAll('#mob-actions-sheet [data-page]').forEach(btn => {
     btn.addEventListener('click', () => {
       nav(btn.dataset.page, btn);
@@ -491,7 +498,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (typeof toast === 'function') toast(msg, kind || 'suc');
     };
     if (navigator.clipboard?.writeText) {
-      navigator.clipboard.writeText(t).then(() => ok('Configuration Supabase copiée ✓'), () => ok('Copie impossible', 'err'));
+      navigator.clipboard.writeText(t).then(() => ok('Configuration Supabase copiée'), () => ok('Copie impossible', 'err'));
     } else {
       try {
         const ta = document.createElement('textarea');
@@ -502,7 +509,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ta.select();
         document.execCommand('copy');
         document.body.removeChild(ta);
-        ok('Script SQL copié ✓');
+        ok('Script SQL copié');
       } catch {
         ok('Copie impossible', 'err');
       }

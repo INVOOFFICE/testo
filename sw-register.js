@@ -91,7 +91,7 @@
       console.error('[SW] Precache critique échoué — mise à jour non activée.', urls);
       if (typeof toast === 'function') {
         toast(
-          '⚠️ Mise à jour hors-ligne incomplète (fichiers manquants). Rechargez ou vérifiez le déploiement.',
+          'Mise à jour hors-ligne incomplète (fichiers manquants). Rechargez ou vérifiez le déploiement.',
           'err',
         );
       }
@@ -101,7 +101,7 @@
       const urls = Array.isArray(event.data.urls) ? event.data.urls : [];
       console.warn('[SW] Captures PWA non mises en cache (hors-ligne store):', urls);
       if (typeof toast === 'function') {
-        toast('⚠️ Captures d’écran PWA non disponibles hors-ligne (non bloquant).', '');
+        toast(' Captures d’écran PWA non disponibles hors-ligne (non bloquant).', '');
       }
     }
   });
@@ -420,7 +420,7 @@ function _showIOSInstallHint() {
   setTrustedStaticHtml(
     hint,
     `
-    <div style="font-size:20px;margin-bottom:8px">📲</div>
+    <div style="font-size:20px;margin-bottom:8px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><path d="M12 18h.01"/></svg></div>
     <div style="font-weight:700;margin-bottom:6px">Installer INVOO OFFICE</div>
     <div style="color:var(--text2,#94A8BE);line-height:1.6;font-size:12px">
       Appuyez sur <strong style="color:var(--text,#E8EEF4)">⬆ Partager</strong>
@@ -466,7 +466,7 @@ function showNetworkBanner(status) {
     ].join(';');
     setTrustedStaticHtml(
       b,
-      `<span style="font-size:20px">🎉</span><div><div style="font-weight:700">INVOO OFFICE installé !</div><div style="font-size:12px;color:var(--text2,#94A8BE)">Accédez à l'app depuis votre écran d'accueil.</div></div>`,
+      `<span style="font-size:20px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/><path d="M10.5 14l2-2"/><path d="M14 18l2-2"/><path d="M2 20a2 2 0 0 0 2 2h4l6-6-6-6H4a2 2 0 0 0-2 2v8Z"/><path d="M9 11l3-3"/></svg></span><div><div style="font-weight:700">INVOO OFFICE installé !</div><div style="font-size:12px;color:var(--text2,#94A8BE)">Accédez à l'app depuis votre écran d'accueil.</div></div>`,
     );
     document.body.appendChild(b);
     setTimeout(() => b.remove(), 4000);
@@ -498,10 +498,10 @@ function showNetworkBanner(status) {
   setTrustedStaticHtml(
     banner,
     isOffline
-      ? `<span style="font-size:16px">📵</span>
+      ? `<span style="font-size:16px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="1" x2="23" y2="23"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/><path d="M10.71 5.05A16 16 0 0 1 22.58 9"/><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg></span>
        <span>Mode hors-ligne — L'application continue de fonctionner. Les données sont sauvegardées localement.</span>
-       <button id="sw-network-banner-close" type="button" style="margin-left:auto;background:none;border:none;cursor:pointer;color:inherit;font-size:16px;padding:0 4px">✕</button>`
-      : `<span style="font-size:16px">✅</span>
+       <button id="sw-network-banner-close" type="button" style="margin-left:auto;background:none;border:none;cursor:pointer;color:inherit;font-size:16px;padding:0 4px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>`
+      : `<span style="font-size:16px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span>
        <span>Connexion rétablie — Vos données sont synchronisées.</span>`,
   );
 
@@ -558,7 +558,7 @@ function showUpdateToast(registration) {
   setTrustedStaticHtml(
     toast,
     `
-    <span style="font-size:20px">🔄</span>
+    <span style="font-size:20px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg></span>
     <div>
       <div style="font-weight:700;margin-bottom:2px">Mise à jour disponible</div>
       <div style="font-size:12px;color:var(--text2,#94A8BE)">Rechargez pour obtenir la dernière version.</div>

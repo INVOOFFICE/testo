@@ -331,13 +331,13 @@ function renderStock() {
     e1.title = 'Modifier';
     e1.setAttribute('data-action', 'edit-article');
     e1.setAttribute('data-id', enc);
-    e1.textContent = '✏️';
+    e1.innerHTML = window.ICONS.edit;
     const e2 = document.createElement('button');
     e2.className = 'btn btn-icon btn-danger btn-sm';
     e2.title = 'Supprimer';
     e2.setAttribute('data-action', 'delete-article');
     e2.setAttribute('data-id', enc);
-    e2.textContent = '🗑';
+    e2.innerHTML = window.ICONS.trash;
     aw.appendChild(e1);
     aw.appendChild(e2);
     td8.appendChild(aw);
@@ -475,12 +475,12 @@ function renderStock() {
     bE.className = 'btn btn-secondary btn-sm';
     bE.setAttribute('data-action', 'edit-article');
     bE.setAttribute('data-id', enc);
-    bE.textContent = '✏️ Modifier';
+    bE.innerHTML = window.ICONS.edit + ' Modifier';
     const bD = document.createElement('button');
     bD.className = 'btn btn-danger btn-sm';
     bD.setAttribute('data-action', 'delete-article');
     bD.setAttribute('data-id', enc);
-    bD.textContent = '🗑';
+    bD.innerHTML = window.ICONS.trash;
     act.appendChild(bE);
     act.appendChild(bD);
     card.appendChild(act);
@@ -519,7 +519,7 @@ function populateFournisseurSelect(selectedId) {
   sel.appendChild(ph);
   const addOption = document.createElement('option');
   addOption.value = '__new_supplier__';
-  addOption.textContent = '➕ Ajouter un fournisseur';
+  addOption.innerHTML = window.ICONS.plus + ' Ajouter un fournisseur';
   sel.appendChild(addOption);
   list
     .filter(f => f && f.id != null)
@@ -623,13 +623,13 @@ function saveArticle() {
   save('stock');
   closeModal('modal-article');
   renderStock();
-  toast(APP.editArticleId ? 'Article mis à jour ✓' : 'Article ajouté ✓', 'suc');
+  toast(APP.editArticleId ? 'Article mis à jour' : 'Article ajouté', 'suc');
 }
 async function deleteArticle(id) {
   const ok = await showConfirm({
     title: 'Supprimer cet article ?',
     message: 'Cette action est <strong>irréversible</strong>.',
-    icon: '🗑️',
+    icon: window.ICONS.trash,
     okLabel: 'Supprimer',
     okStyle: 'danger',
   });
@@ -644,7 +644,7 @@ async function clearStock() {
   const ok = await showConfirm({
     title: 'Supprimer TOUS les articles ?',
     message: 'Tout votre catalogue sera effacé. Cette action est <strong>irréversible</strong>.',
-    icon: '⚠️',
+    icon: window.ICONS.alertTriangle,
     okLabel: 'Tout supprimer',
     okStyle: 'danger',
   });
@@ -747,7 +747,7 @@ async function clearStockMoves() {
   const ok = await showConfirm({
     title: 'Vider l’historique des mouvements ?',
     message: `${count} mouvement(s) seront supprimés.`,
-    icon: '🗑️',
+    icon: window.ICONS.trash,
     okLabel: 'Vider',
     okStyle: 'danger',
   });
@@ -755,7 +755,7 @@ async function clearStockMoves() {
   DB.stockMoves = [];
   save('stockMoves');
   renderStockMoves();
-  toast('Historique des mouvements vidé ✓', 'suc');
+  toast('Historique des mouvements vidé', 'suc');
 }
 /** Export du stock en CSV (séparateur ; — Excel FR, BOM UTF-8) */
 function exportStockCSV() {
@@ -825,7 +825,7 @@ function exportStockCSV() {
   a.download = `stock_${new Date().toISOString().slice(0, 10)}.csv`;
   a.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
-  toast(`✅ Export CSV — ${DB.stock.length} article(s)`, 'suc');
+  toast(`Export CSV — ${DB.stock.length} article(s)`, 'suc');
 }
 
 // Stock picker
@@ -892,7 +892,7 @@ function renderStockPicker() {
     if (a.barcode) {
       const dBc = document.createElement('div');
       dBc.style.cssText = `font-size:11px;color:${barcodeMatch ? 'var(--brand)' : 'var(--text2)'};margin-top:2px;font-family:monospace;letter-spacing:.04em`;
-      if (barcodeMatch) dBc.appendChild(document.createTextNode('📷 '));
+      if (barcodeMatch) dBc.innerHTML += window.ICONS.camera + ' ';
       if (barcodeMatch) appendHighlightedContent(dBc, a.barcode, search, markPick);
       else dBc.appendChild(document.createTextNode(a.barcode));
       td0.appendChild(dBc);
@@ -908,7 +908,7 @@ function renderStockPicker() {
     if (low && !zero) {
       const w = document.createElement('span');
       w.style.cssText = 'font-size:10px;color:var(--accent)';
-      w.textContent = ' ⚠️';
+      w.innerHTML = ' ' + window.ICONS.alertTriangle;
       td2.appendChild(w);
     }
     const td3 = document.createElement('td');
@@ -950,7 +950,7 @@ function addLineFromStock(id) {
     toast(`${a.name} × ${existing.qty}`, 'suc');
   } else {
     addLine(a);
-    toast(`${a.name} ajouté ✓`, 'suc');
+    toast(`${a.name} ajouté`, 'suc');
   }
   renderStockPicker();
 }

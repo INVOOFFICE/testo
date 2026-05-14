@@ -615,7 +615,7 @@ function exportBackup() {
   DB.settings.lastBackupReminderCycle = 0;
   DB.settings.lastBackupReminderAt = '';
   save('settings');
-  toast('✅ Backup exporté avec succès', 'suc');
+  toast('Backup exporté avec succès', 'suc');
   if (typeof renderBackupReminderStatus === 'function') renderBackupReminderStatus();
 }
 
@@ -651,9 +651,9 @@ function tryMonthlyBackupReminder() {
 
   if (typeof showConfirm === 'function') {
     void showConfirm({
-      title: '💾 Rappel backup mensuel',
+      title: window.ICONS.save + ' Rappel backup mensuel',
       message: `C’est le <strong>${target}</strong> du mois — pense à exporter une sauvegarde JSON (rappel défini dans Paramètres).`,
-      icon: '📅',
+      icon: window.ICONS.calendar,
       okLabel: 'Exporter maintenant',
       okStyle: 'primary',
       cancelLabel: 'Plus tard',
@@ -661,7 +661,7 @@ function tryMonthlyBackupReminder() {
       if (ok) exportBackup();
     });
   } else {
-    toast(`⚠️ Rappel backup mensuel — jour ${target}`, '');
+    toast(`Rappel backup mensuel — jour ${target}`, 'warn');
   }
   return true;
 }
@@ -681,10 +681,10 @@ function checkBackupReminder() {
       save('settings');
       if (typeof showConfirm === 'function') {
         void showConfirm({
-          title: '💾 Export backup recommandé',
+          title: window.ICONS.save + ' Export backup recommandé',
           message:
             'Aucun backup enregistré. Exporte maintenant un fichier JSON pour garder tes données en sécurité.',
-          icon: '📦',
+          icon: window.ICONS.package,
           okLabel: 'Exporter maintenant',
           okStyle: 'primary',
           cancelLabel: 'Plus tard',
@@ -719,9 +719,9 @@ function checkBackupReminder() {
     const isUrgent = cycleIndex >= 2;
     const labelDays = Math.floor(days);
     void showConfirm({
-      title: isUrgent ? '⚠️ Backup en retard' : '💾 Rappel backup',
+      title: isUrgent ? window.ICONS.alertTriangle + ' Backup en retard' : window.ICONS.save + ' Rappel backup',
       message: `Ton dernier backup date d’environ <strong>${labelDays}</strong> jour(s).<br><br>Pour éviter toute perte (panne disque, effacement navigateur), exporte un fichier JSON.`,
-      icon: isUrgent ? '⚠️' : '💾',
+      icon: isUrgent ? window.ICONS.alertTriangle : window.ICONS.save,
       okLabel: 'Exporter maintenant',
       okStyle: isUrgent ? 'danger' : 'primary',
       cancelLabel: 'Rappel plus tard',
@@ -729,7 +729,7 @@ function checkBackupReminder() {
       if (ok) exportBackup();
     });
   } else {
-    toast(`⚠️ Backup à faire (>=30j) — ${Math.floor(days)} jours`, '');
+    toast(`Backup à faire (>=30j) — ${Math.floor(days)} jours`, 'warn');
   }
 }
 

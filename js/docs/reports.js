@@ -1,6 +1,9 @@
 // Kept for backward compat (modale), but now the Reports page is the primary entry
+
+import { docsCtx } from './context.js';
+
 export function showSalesReport() {
-  nav('reports', sbItem('reports'));
+  docsCtx.nav('reports', docsCtx.sbItem('reports'));
 }
 
 /**
@@ -11,7 +14,7 @@ export function accumulateDocTvaByRateForReport(d, sign, byTva) {
   const remise = parseFloat(d.remise) || 0;
   const factor = remise > 0 ? 1 - remise / 100 : 1;
   const useByRate = d.tvaByRate && Object.keys(d.tvaByRate).length > 0;
-  const aeDoc = typeof docIsAutoEntrepreneurExempt === 'function' && docIsAutoEntrepreneurExempt(d);
+  const aeDoc = typeof docIsAutoEntrepreneurExempt === 'function' && docIsAutoEntrepreneurExempt(d); // kept as-is: not in context
   if (useByRate) {
     Object.entries(d.tvaByRate).forEach(([rateStr, vals]) => {
       const r = Number(rateStr);
@@ -63,17 +66,19 @@ export function setRepPeriod(months, btn) {
 }
 export function renderReports(_deferred) {
   if (!document.getElementById('rep-ca')) return;
+  const _APP = docsCtx.getAPP();
+  const _DB = docsCtx.getDB();
   if (!_deferred) {
     _setReportsSkeletonLoading(true);
-    if (APP._repRenderRAF) cancelAnimationFrame(APP._repRenderRAF);
-    APP._repRenderRAF = requestAnimationFrame(() => renderReports(true));
+    if (_APP._repRenderRAF) cancelAnimationFrame(_APP._repRenderRAF);
+    _APP._repRenderRAF = requestAnimationFrame(() => renderReports(true));
     return;
   }
   document.querySelectorAll('[id^="rep-btn-"]').forEach(b => {
     b.classList.toggle('active', String(b.dataset.repPeriod || '') === String(_repPeriodMonths));
   });
   const cutoffStr = _repCutoffYmd(_repPeriodMonths);
-  const docs = DB.docs.filter(d => {
+  const docs = docsCtx.getDB().docs.filter(d => {
     const ymd = _repDocYmd(d);
     if (!ymd || ymd < cutoffStr) return false;
     if (d.type === 'F') return d.status === 'Payé';
@@ -88,9 +93,9 @@ export function renderReports(_deferred) {
     const el = document.getElementById(id);
     if (el) el.textContent = v;
   };
-  setEl('rep-ca', fmt(ca));
-  setEl('rep-ht', fmt(ht));
-  setEl('rep-tva', fmt(tva));
+  setEl('rep-ca', docsCtx.fmt(ca));
+  setEl('rep-ht', docsCtx.fmt(ht));
+  setEl('rep-tva', docsCtx.fmt(tva));
 
   // Par type
   const byType = {};
@@ -100,7 +105,7 @@ export function renderReports(_deferred) {
   const typeLabels = { F: 'Facture', D: 'Devis', BL: 'Bon de Livraison', AV: 'Avoir' };
   const byTypeEl = document.getElementById('rep-by-type');
   if (byTypeEl) {
-    clearChildren(byTypeEl);
+    docsCtx.clearChildren(byTypeEl);
     if (!Object.keys(byType).length) {
       const em = document.createElement('div');
       em.style.cssText = 'color:var(--text2);font-size:13px';
@@ -116,7 +121,7 @@ export function renderReports(_deferred) {
         a.textContent = typeLabels[t] || t;
         const b = document.createElement('span');
         b.style.cssText = 'font-family:Arial, sans-serif;font-weight:700;color:var(--brand)';
-        b.textContent = fmt(v);
+        b.textContent = docsCtx.fmt(v);
         row.appendChild(a);
         row.appendChild(b);
         byTypeEl.appendChild(row);
@@ -135,7 +140,7 @@ export function renderReports(_deferred) {
     .slice(0, 5);
   const topEl = document.getElementById('rep-top-clients');
   if (topEl) {
-    clearChildren(topEl);
+    docsCtx.clearChildren(topEl);
     if (!top.length) {
       const em = document.createElement('div');
       em.style.cssText = 'color:var(--text2);font-size:13px';
@@ -155,7 +160,7 @@ export function renderReports(_deferred) {
         nm.textContent = n;
         const amt = document.createElement('span');
         amt.style.cssText = 'font-family:Arial, sans-serif;font-weight:700';
-        amt.textContent = fmt(v);
+        amt.textContent = docsCtx.fmt(v);
         row.appendChild(rk);
         row.appendChild(nm);
         row.appendChild(amt);
@@ -171,7 +176,7 @@ export function renderReports(_deferred) {
   });
   const tvaEl = document.getElementById('rep-tva-breakdown');
   if (tvaEl) {
-    clearChildren(tvaEl);
+    docsCtx.clearChildren(tvaEl);
     if (!Object.keys(byTva).length) {
       const em = document.createElement('div');
       em.style.cssText = 'color:var(--text2);font-size:13px';
@@ -215,15 +220,15 @@ export function renderReports(_deferred) {
           const c1 = document.createElement('td');
           c1.style.cssText =
             'padding:9px 10px;border-bottom:1px solid var(--border);text-align:right;font-family:Arial, sans-serif';
-          c1.textContent = fmt(v.base);
+          c1.textContent = docsCtx.fmt(v.base);
           const c2 = document.createElement('td');
           c2.style.cssText =
             'padding:9px 10px;border-bottom:1px solid var(--border);text-align:right;font-family:Arial, sans-serif;color:var(--accent);font-weight:600';
-          c2.textContent = fmt(v.tva);
+          c2.textContent = docsCtx.fmt(v.tva);
           const c3 = document.createElement('td');
           c3.style.cssText =
             'padding:9px 10px;border-bottom:1px solid var(--border);text-align:right;font-family:Arial, sans-serif;font-weight:700;color:var(--brand)';
-          c3.textContent = fmt(v.base + v.tva);
+          c3.textContent = docsCtx.fmt(v.base + v.tva);
           tr.appendChild(c0);
           tr.appendChild(c1);
           tr.appendChild(c2);

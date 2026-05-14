@@ -1,5 +1,7 @@
 // WhatsApp sharing for documents from history.
 
+import { docsCtx } from './context.js';
+
 function _normalizePhoneForWhatsApp(phone) {
   const p = String(phone || '').replace(/\D/g, '');
   if (!p) return '';
@@ -9,20 +11,21 @@ function _normalizePhoneForWhatsApp(phone) {
 }
 
 export function sendDocWhatsApp(docId) {
-  const d = DB.docs.find(x => x.id === docId);
+  const _DB = docsCtx.getDB();
+  const d = _DB.docs.find(x => x.id === docId);
   if (!d) return;
 
-  const c = DB.clients.find(x => x.id === d.clientId);
+  const c = _DB.clients.find(x => x.id === d.clientId);
   const phone = _normalizePhoneForWhatsApp(c?.phone);
   if (!phone) {
-    toast("Client sans téléphone — impossible d'envoyer via WhatsApp", 'err');
+    docsCtx.toast("Client sans téléphone — impossible d'envoyer via WhatsApp", 'err');
     return;
   }
 
   const typeLabel =
     { F: 'Facture', D: 'Devis', BL: 'Bon de Livraison', AV: 'Avoir' }[d.type] || d.type;
   const name = c?.name || d.clientName || 'client';
-  const sender = DB.settings?.name || 'INVO';
+  const sender = docsCtx.getDB().settings?.name || 'INVO';
 
   const ht = Number(d.ht || 0);
   const tvaAmount = Number(d.tva || 0);
@@ -38,7 +41,7 @@ export function sendDocWhatsApp(docId) {
     const th = q * pu;
     const label = l.name || l.designation || 'Article';
     const tvaPct = l.tva == null ? null : Number(l.tva);
-    return `• ${label} — ${q} x ${fmt(pu)} = ${fmt(th)}${tvaPct != null && !Number.isNaN(tvaPct) ? ` (TVA ${tvaPct}%)` : ''}`;
+    return `• ${label} — ${q} x ${docsCtx.fmt(pu)} = ${docsCtx.fmt(th)}${tvaPct != null && !Number.isNaN(tvaPct) ? ` (TVA ${tvaPct}%)` : ''}`;
   });
   if (allLines.length > 6) {
     linesPreview.push(`• ... (${allLines.length - 6} autre(s) ligne(s))`);

@@ -31,7 +31,7 @@ body.pay-licence-page {
 
 .pay-licence-page .hero {
   position: relative;
-  background: linear-gradient(155deg, #0f1923 0%, #152a38 42%, #0a4d3f 100%);
+  background: linear-gradient(155deg, #0F172A 0%, #1a2538 42%, #065f46 100%);
   border-radius: var(--radius, 10px);
   padding: 24px 20px 36px;
   color: #e8eef4;
@@ -135,7 +135,7 @@ body.pay-licence-page {
 }
 .pay-licence-page .tab.active {
   background: var(--brand-light);
-  border-color: rgba(9, 188, 138, 0.35);
+  border-color: rgba(16, 185, 129, 0.30);
   color: var(--teal);
 }
 .pay-licence-page .tab-icon {

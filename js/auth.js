@@ -428,7 +428,7 @@ async function _showSetPasswordScreen(record) {
       DB.settings.email = record.email;
       if (typeof save === 'function') save('settings');
     }
-    if (typeof toast === 'function') toast('Activation réussie ✓', 'suc');
+    if (typeof toast === 'function') toast('Activation réussie', 'suc');
     _clearScreen();
     _launchApp();
   };
@@ -852,7 +852,7 @@ globalThis.renderSettingsActivationStatus = async function renderSettingsActivat
   }
   const ok = document.createElement('div');
   ok.style.cssText = 'font-size:14px;font-weight:700;color:var(--teal,#09BC8A);margin-bottom:6px';
-  ok.textContent = 'Activé ✔️';
+  ok.innerHTML = window.ICONS.checkCircle + ' Activé';
   el.appendChild(ok);
   if (act.sessionPassHash) {
     const pw = document.createElement('div');
@@ -996,5 +996,5 @@ globalThis.submitSettingsSessionPasswordChange = async function submitSettingsSe
   if (n) n.value = '';
   if (n2) n2.value = '';
 
-  if (typeof toast === 'function') toast('Mot de passe de session mis à jour ✓', 'suc');
+  if (typeof toast === 'function') toast('Mot de passe de session mis à jour', 'suc');
 };

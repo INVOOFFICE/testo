@@ -1,15 +1,17 @@
 // Filtres de l'historique documents.
 
+import { docsCtx } from './context.js';
+
 export function populateHistClientFilter() {
   const sel = document.getElementById('hist-client');
   if (!sel) return;
   const cur = sel.value;
-  clearChildren(sel);
+  docsCtx.clearChildren(sel);
   const ph = document.createElement('option');
   ph.value = '';
   ph.textContent = 'Tous les clients';
   sel.appendChild(ph);
-  const names = [...new Set(DB.docs.map(d => d.clientName).filter(Boolean))];
+  const names = [...new Set(docsCtx.getDB().docs.map(d => d.clientName).filter(Boolean))];
   names.forEach(n => {
     const o = document.createElement('option');
     o.value = n;
@@ -28,7 +30,7 @@ export function getHistFiltered() {
   const toEl = document.getElementById('hist-date-to');
   const from = (fromEl?._filterValue ?? fromEl?.value) || '';
   const to = (toEl?._filterValue ?? toEl?.value) || '';
-  return DB.docs.filter(d => {
+  return docsCtx.getDB().docs.filter(d => {
     const refLc = (d.ref || '').toLowerCase();
     const cliLc = (d.clientName || '').toLowerCase();
     const q = search.toLowerCase();
@@ -59,6 +61,6 @@ export function resetHistFilters() {
     }
     el.value = '';
   });
-  APP.histPage = 1;
-  renderHistory();
+  docsCtx.getAPP().histPage = 1;
+  if (typeof renderHistory === 'function') renderHistory();
 }

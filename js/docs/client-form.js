@@ -1,37 +1,39 @@
 import { runDGICheck } from './dgi-checker.js';
 import { updateDocRef } from './refs.js';
+import { docsCtx } from './context.js';
 
 export function populateDocClient() {
   const sel = document.getElementById('doc-client');
   if (!sel) return;
+  const _DB = docsCtx.getDB();
   const cur = sel.value;
-  clearChildren(sel);
+  docsCtx.clearChildren(sel);
   const placeholder = document.createElement('option');
   placeholder.value = '';
-  placeholder.textContent = DB.clients.length
+  placeholder.textContent = _DB.clients.length
     ? 'Sélectionner un client...'
     : 'Aucun client enregistré';
   sel.appendChild(placeholder);
   const addOpt = document.createElement('option');
   addOpt.value = '__new__';
-  addOpt.textContent = '➕ Ajouter un nouveau client';
+  addOpt.innerHTML = window.ICONS.plus + ' Ajouter un nouveau client';
   sel.appendChild(addOpt);
-  if (DB.clients.length) {
+  if (_DB.clients.length) {
     const sep = document.createElement('option');
     sep.disabled = true;
     sep.textContent = '──────────────────';
     sel.appendChild(sep);
-    DB.clients.forEach(c => {
+    _DB.clients.forEach(c => {
       const o = document.createElement('option');
       const iceOk = (c.ice || '').replace(/\D/g, '').length === 15;
       o.value = c.id;
-      o.textContent = c.name + (c.ice ? ` — ICE ${c.ice}` : '  ⚠ sans ICE');
+      o.innerHTML = c.name + (c.ice ? ` — ICE ${c.ice}` : '  ' + window.ICONS.alertTriangle + ' sans ICE');
       if (c.id === cur) o.selected = true;
       sel.appendChild(o);
     });
   }
   syncGenerateFromSettings();
-  if (typeof refreshThemedSelect === 'function') refreshThemedSelect('doc-client');
+  docsCtx.refreshThemedSelect('doc-client');
 }
 
 export function onClientChange() {
@@ -48,7 +50,7 @@ export function onClientChange() {
     runDGICheck();
     return;
   }
-  const client = DB.clients.find(c => c.id === val);
+  const client = docsCtx.getDB().clients.find(c => c.id === val);
   if (!client) {
     pill.style.display = 'none';
     runDGICheck();
@@ -57,12 +59,12 @@ export function onClientChange() {
   const hasICE = (client.ice || '').replace(/\D/g, '').length === 15;
   pill.style.display = 'inline-flex';
   pill.className = 'client-ice-pill ' + (hasICE ? 'ok' : 'miss');
-  pill.textContent = hasICE ? '✓ ICE OK' : '⚠ ICE manquant';
+  pill.innerHTML = hasICE ? window.ICONS.checkCircle + ' ICE OK' : window.ICONS.alertTriangle + ' ICE manquant';
   runDGICheck();
 }
 
 export function syncGenerateFromSettings() {
-  const s = DB.settings;
+  const s = docsCtx.getDB().settings;
   const notesEl = document.getElementById('doc-notes');
   if (notesEl && !notesEl.value && s.footer) notesEl.placeholder = `Footer par défaut: ${s.footer}`;
   updateDocRef();

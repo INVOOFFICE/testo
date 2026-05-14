@@ -137,7 +137,7 @@ function renderClients() {
       const s2 = document.createElement('span');
       s2.style.cssText =
         'font-size:10px;background:rgba(239,68,68,.12);color:var(--danger);padding:2px 6px;border-radius:4px;font-weight:700';
-      s2.textContent = '⚠ Manquant';
+      s2.innerHTML = window.ICONS.alertTriangle + ' Manquant';
       td1.appendChild(s2);
     } else {
       const s = document.createElement('span');
@@ -187,14 +187,14 @@ function renderClients() {
     const aw = document.createElement('div');
     aw.style.cssText = 'display:flex;gap:4px';
     [
-      ['btn btn-icon btn-secondary btn-sm', 'Modifier', '✏️', 'edit-client'],
-      ['btn btn-icon btn-secondary btn-sm', 'Nouvelle facture', '📄', 'new-doc-client'],
-      ['btn btn-icon btn-danger btn-sm', 'Supprimer', '🗑', 'delete-client'],
+      ['btn btn-icon btn-secondary btn-sm', 'Modifier', window.ICONS.edit, 'edit-client'],
+      ['btn btn-icon btn-secondary btn-sm', 'Nouvelle facture', window.ICONS.fileText, 'new-doc-client'],
+      ['btn btn-icon btn-danger btn-sm', 'Supprimer', window.ICONS.trash, 'delete-client'],
     ].forEach(([cl, tit, tx, ac]) => {
       const b = document.createElement('button');
       b.className = cl;
       b.title = tit;
-      b.textContent = tx;
+      b.innerHTML = tx;
       b.setAttribute('data-action', ac);
       b.setAttribute('data-id', enc);
       aw.appendChild(b);
@@ -227,7 +227,7 @@ function renderClients() {
       const nbInvoices = cliDocs.filter(d => d.type === 'F').length;
       const isPro = c.type === 'professionnel';
       const hasIce = c.ice && validateICE(c.ice);
-      const iceBadgeLabel = hasIce ? '✓ ICE' : isPro ? '⚠ Sans ICE' : '✓ Particulier';
+      const iceBadgeLabel = hasIce ? window.ICONS.checkCircle + ' ICE' : isPro ? window.ICONS.alertTriangle + ' Sans ICE' : window.ICONS.checkCircle + ' Particulier';
       const card = document.createElement('div');
       card.className = 'mob-card';
       const hdr = document.createElement('div');
@@ -237,7 +237,7 @@ function renderClients() {
       ttl.textContent = c.name || '';
       const bd = document.createElement('span');
       bd.className = 'badge ' + (hasIce ? 'paid' : isPro ? 'cancelled' : 'paid');
-      bd.textContent = iceBadgeLabel;
+      bd.innerHTML = iceBadgeLabel;
       hdr.appendChild(ttl);
       hdr.appendChild(bd);
       card.appendChild(hdr);
@@ -268,13 +268,13 @@ function renderClients() {
       const act = document.createElement('div');
       act.className = 'mob-card-actions';
       [
-        ['btn btn-secondary btn-sm', '✏️ Modifier', 'edit-client'],
-        ['btn btn-secondary btn-sm', '📄 Facture', 'new-doc-client'],
-        ['btn btn-danger btn-sm', '🗑', 'delete-client'],
+        ['btn btn-secondary btn-sm', window.ICONS.edit + ' Modifier', 'edit-client'],
+        ['btn btn-secondary btn-sm', window.ICONS.fileText + ' Facture', 'new-doc-client'],
+        ['btn btn-danger btn-sm', window.ICONS.trash, 'delete-client'],
       ].forEach(([cl, tx, ac]) => {
         const b = document.createElement('button');
         b.className = cl;
-        b.textContent = tx;
+        b.innerHTML = tx;
         b.setAttribute('data-action', ac);
         b.setAttribute('data-id', enc);
         act.appendChild(b);
@@ -346,7 +346,7 @@ async function saveClient() {
     const go = await showConfirm({
       title: 'ICE invalide',
       message: `L'ICE pour ${name} doit comporter exactement 15 chiffres.\n\nContinuer quand même ?`,
-      icon: '⚠️',
+      icon: window.ICONS.alertTriangle,
       okLabel: 'Continuer quand même',
       okStyle: 'danger',
     });
@@ -394,14 +394,14 @@ async function saveClient() {
       onClientChange();
     }
   }
-  toast(APP.editClientId ? 'Client mis à jour ✓' : 'Client ajouté ✓', 'suc');
+  toast(APP.editClientId ? 'Client mis à jour' : 'Client ajouté', 'suc');
 }
 async function deleteClient(id) {
   const ok = await showConfirm({
     title: 'Supprimer ce client ?',
     message:
       'Cette action est <strong>irréversible</strong>. Les documents existants ne seront pas affectés.',
-    icon: '🗑️',
+    icon: window.ICONS.trash,
     okLabel: 'Supprimer',
     okStyle: 'danger',
   });
@@ -517,7 +517,7 @@ function exportClients() {
   wb.Props = { Title: 'Clients INVO', Author: DB.settings.name || 'INVO', CreatedDate: new Date() };
   XLSX.utils.book_append_sheet(wb, ws, 'Clients');
   XLSX.writeFile(wb, `clients_${new Date().toISOString().slice(0, 10)}.xlsx`);
-  toast(`✅ Export Clients Excel — ${DB.clients.length} client(s)`, 'suc');
+  toast(`Export Clients Excel — ${DB.clients.length} client(s)`, 'suc');
 }
 
 function appendNote(text) {
@@ -605,7 +605,7 @@ async function saveNewClientQuick() {
     const go = await showConfirm({
       title: 'ICE invalide',
       message: `L'ICE pour ${name} doit comporter exactement 15 chiffres.\n\nContinuer quand même ?`,
-      icon: '⚠️',
+      icon: window.ICONS.alertTriangle,
       okLabel: 'Continuer',
       okStyle: 'danger',
     });
@@ -637,5 +637,5 @@ async function saveNewClientQuick() {
   }
   renderClients();
   closeModal('modal-new-client-quick');
-  toast(`${isPro ? '🏢' : '👤'} ${name} ajouté et sélectionné ✓`, 'suc');
+  toast(`${name} ajouté et sélectionné`, 'suc');
 }

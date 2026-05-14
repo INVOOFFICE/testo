@@ -1,5 +1,7 @@
 // Totaux document, ventilation TVA et montant en lettres.
 
+import { docsCtx } from './context.js';
+
 export function nombreEnLettres(montant, devise) {
   const u = [
     '',
@@ -92,7 +94,7 @@ export function nombreEnLettres(montant, devise) {
 
 export function calcTotals() {
   const remise = parseFloat(document.getElementById('doc-remise')?.value) || 0;
-  const ae = typeof isAutoEntrepreneurVAT === 'function' && isAutoEntrepreneurVAT();
+  const ae = docsCtx.isAutoEntrepreneurVAT();
   let globalHT = 0,
     globalTVA = 0;
   const byRate = {};
@@ -126,9 +128,13 @@ export function calcTotals() {
   const acompte = parseFloat(document.getElementById('doc-acompte')?.value) || 0;
   const reste = ttc - acompte;
 
-  document.getElementById('sum-ht').textContent = fmt(globalHT);
-  document.getElementById('sum-tva').textContent = fmt(globalTVA);
-  document.getElementById('sum-ttc').textContent = fmt(ttc);
+  // NULL-SAFE: sum-ht/sum-tva/sum-ttc may not be in DOM during early navigation or page re-render
+  const sumHt = document.getElementById('sum-ht');
+  const sumTva = document.getElementById('sum-tva');
+  const sumTtc = document.getElementById('sum-ttc');
+  if (sumHt) sumHt.textContent = docsCtx.fmt(globalHT);
+  if (sumTva) sumTva.textContent = docsCtx.fmt(globalTVA);
+  if (sumTtc) sumTtc.textContent = docsCtx.fmt(ttc);
 
   // Adapter le bloc "Reste à payer" selon le type de document
   const type = document.getElementById('doc-type')?.value || 'F';
@@ -139,12 +145,12 @@ export function calcTotals() {
     // Facture : afficher "Reste à payer" avec l'acompte déduit
     if (resteBlock) resteBlock.style.display = '';
     if (resteLabel) resteLabel.textContent = 'Reste à payer';
-    if (resteVal) resteVal.textContent = fmt(Math.max(reste, 0));
+    if (resteVal) resteVal.textContent = docsCtx.fmt(Math.max(reste, 0));
   } else if (type === 'AV') {
     // Avoir : afficher "Montant à rembourser"
     if (resteBlock) resteBlock.style.display = '';
     if (resteLabel) resteLabel.textContent = 'Montant à rembourser';
-    if (resteVal) resteVal.textContent = fmt(ttc);
+    if (resteVal) resteVal.textContent = docsCtx.fmt(ttc);
   } else {
     // Devis, BL : masquer le bloc, sans sens métier
     if (resteBlock) resteBlock.style.display = 'none';
@@ -154,7 +160,7 @@ export function calcTotals() {
   const arrTxt = document.getElementById('sum-arrete-text');
   if (arrEl && arrTxt) {
     if (ttc > 0) {
-      const currency = typeof CUR === 'function' ? CUR() : 'DH';
+      const currency = docsCtx.CUR();
       arrTxt.textContent = nombreEnLettres(ttc, currency);
       arrEl.style.display = '';
     } else {
@@ -192,7 +198,7 @@ export function renderTVABreakdown(byRate, globalHT, globalTVA, ttc) {
   // Couleurs par taux
   const tvaColors = { 0: '#64748b', 7: '#3b82f6', 10: '#8b5cf6', 14: '#f59e0b', 20: '#09BC8A' };
 
-  clearChildren(tbody);
+  docsCtx.clearChildren(tbody);
   rates.forEach(r => {
     const v = byRate[r];
     const color = tvaColors[r] || '#94a3b8';
@@ -206,14 +212,14 @@ export function renderTVABreakdown(byRate, globalHT, globalTVA, ttc) {
     badge.textContent = `${r}%`;
     tdBadge.appendChild(badge);
     const tdHt = document.createElement('td');
-    tdHt.textContent = fmt(v.ht);
+    tdHt.textContent = docsCtx.fmt(v.ht);
     const tdTva = document.createElement('td');
     tdTva.style.color = color;
     tdTva.style.fontWeight = '600';
-    tdTva.textContent = fmt(v.tva);
+    tdTva.textContent = docsCtx.fmt(v.tva);
     const tdTtc = document.createElement('td');
     tdTtc.style.fontWeight = '700';
-    tdTtc.textContent = fmt(v.ttc);
+    tdTtc.textContent = docsCtx.fmt(v.ttc);
     tr.appendChild(tdBadge);
     tr.appendChild(tdHt);
     tr.appendChild(tdTva);
@@ -221,21 +227,21 @@ export function renderTVABreakdown(byRate, globalHT, globalTVA, ttc) {
     tbody.appendChild(tr);
   });
 
-  clearChildren(tfoot);
+  docsCtx.clearChildren(tfoot);
   const sumRow = document.createElement('tr');
   sumRow.className = 'tva-sum-row';
   const s1 = document.createElement('td');
   s1.textContent = 'Total';
   const s2 = document.createElement('td');
-  s2.textContent = fmt(globalHT);
+  s2.textContent = docsCtx.fmt(globalHT);
   const s3 = document.createElement('td');
   s3.style.color = 'var(--accent)';
   s3.style.fontWeight = '700';
-  s3.textContent = fmt(globalTVA);
+  s3.textContent = docsCtx.fmt(globalTVA);
   const s4 = document.createElement('td');
   s4.style.color = 'var(--brand)';
   s4.style.fontWeight = '800';
-  s4.textContent = fmt(ttc);
+  s4.textContent = docsCtx.fmt(ttc);
   sumRow.appendChild(s1);
   sumRow.appendChild(s2);
   sumRow.appendChild(s3);
@@ -246,7 +252,7 @@ export function renderTVABreakdown(byRate, globalHT, globalTVA, ttc) {
 }
 
 export function refreshAutoEntrepreneurDocUI() {
-  const ae = typeof isAutoEntrepreneurVAT === 'function' && isAutoEntrepreneurVAT();
+  const ae = docsCtx.isAutoEntrepreneurVAT();
   const ban = document.getElementById('doc-ae-vat-banner');
   if (ban) ban.style.display = ae ? 'block' : 'none';
   const artCard = document.getElementById('doc-articles-card');
@@ -262,7 +268,7 @@ export function refreshAutoEntrepreneurDocUI() {
   document.querySelectorAll('#doc-lines .inv-line select[data-line-tva-select]').forEach(sel => {
     const row = sel.closest('.inv-line');
     const lid = row && row.dataset ? row.dataset.lid : '';
-    const line = lid ? APP.docLines.find(x => x.id === lid) : null;
+    const line = lid ? docsCtx.getAPP().docLines.find(x => x.id === lid) : null;
     sel.disabled = !!ae;
     if (ae) sel.value = '0';
     else if (line && ['0', '7', '10', '14', '20'].includes(String(line.tva)))
@@ -272,10 +278,10 @@ export function refreshAutoEntrepreneurDocUI() {
 
 export function getTotals() {
   const remise = parseFloat(document.getElementById('doc-remise')?.value) || 0;
-  const ae = typeof isAutoEntrepreneurVAT === 'function' && isAutoEntrepreneurVAT();
+  const ae = docsCtx.isAutoEntrepreneurVAT();
   let ht = 0,
     tva = 0;
-  APP.docLines.forEach(l => {
+  docsCtx.getAPP().docLines.forEach(l => {
     const lht = l.qty * l.price;
     ht += lht;
     if (!ae) tva += lht * ((l.tva || 0) / 100);

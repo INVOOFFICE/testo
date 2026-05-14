@@ -1,4 +1,4 @@
-/* INVO main stylesheet (imports + base reset) */
+/* INVO main stylesheet (imports + base reset) — Premium SaaS */
 
 @import url('./tokens.css');
 @import url('./components-core.css');
@@ -12,29 +12,31 @@
 @import url('./pages/pdf-preview.css');
 @import url('./pages/templates-mobile-static.css');
 @import url('./pages/responsive.css');
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 html,
 body {
   height: 100%;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   background: var(--bg);
   color: var(--text);
   font-size: 14px;
   font-variant-numeric: normal;
-  font-feature-settings:
-    'tnum' 0,
-    'zero' 0;
+  font-feature-settings: 'tnum' 0, 'zero' 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
 * {
   font-variant-numeric: normal;
-  font-feature-settings:
-    'tnum' 0,
-    'zero' 0;
+  font-feature-settings: 'tnum' 0, 'zero' 0;
 }
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -46,25 +48,31 @@ body {
   white-space: nowrap;
   border: 0;
 }
+
 .nzero {
   font-family: Arial, sans-serif;
   font-variant-numeric: normal;
   font-feature-settings: 'zero' 0;
 }
+
 a {
   color: inherit;
   text-decoration: none;
 }
+
 button {
   cursor: pointer;
   font-family: inherit;
 }
+
 button:focus-visible,
 a:focus-visible,
 [role='button']:focus-visible {
   outline: 2px solid var(--teal);
   outline-offset: 2px;
 }
+
+/* ── Premium Form Inputs ── */
 input,
 select,
 textarea {
@@ -73,7 +81,7 @@ textarea {
   color: var(--text);
   background: var(--control-bg);
   border: 1px solid var(--control-border);
-  border-radius: 12px;
+  border-radius: var(--radius-sm);
   padding: 10px 12px;
   outline: none;
   width: 100%;
@@ -83,22 +91,27 @@ textarea {
     box-shadow 0.15s,
     transform 0.06s;
 }
+
 input,
 select {
   min-height: var(--control-h);
 }
+
 textarea {
   line-height: 1.5;
 }
+
 input::placeholder,
 textarea::placeholder {
-  color: rgba(148, 168, 190, 0.75);
+  color: var(--text3);
 }
+
 input:hover,
 textarea:hover {
   background: var(--control-bg-hover);
   border-color: var(--control-border-hover);
 }
+
 select:hover {
   background-color: var(--control-bg-hover);
   border-color: var(--control-border-hover);
@@ -107,45 +120,55 @@ select:hover {
   background-position: right 11px center;
   background-size: 20px;
 }
+
 input:focus,
 select:focus,
 textarea:focus {
   border-color: var(--teal);
   box-shadow: var(--ring);
 }
+
 input:disabled,
 select:disabled,
 textarea:disabled {
-  opacity: 0.55;
+  opacity: 0.50;
   cursor: not-allowed;
 }
+
 input[type='file'] {
   padding: 8px 12px;
 }
+
 input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
 input[type='number'] {
   -moz-appearance: textfield;
 }
-/* Placeholder visible sur les inputs date vides (Safari/iOS) */
+
+/* Placeholder visible on empty date inputs (Safari/iOS) */
 input[type='date']:not(:valid):not(:focus) {
   color: var(--text3);
 }
+
 input[type='date']::-webkit-datetime-edit {
   color: var(--text);
 }
+
 input[type='date']:not(:valid):not(:focus)::-webkit-datetime-edit {
   color: transparent;
 }
+
 input[type='date']:not(:valid):not(:focus)::before {
   content: attr(placeholder);
   color: var(--text3);
   pointer-events: none;
 }
-/* Menus déroulants natifs (<select>) — lisibilité + flèche visible */
+
+/* ── Premium Select ── */
 select {
   appearance: none;
   -webkit-appearance: none;
@@ -154,41 +177,49 @@ select {
   cursor: pointer;
   font-weight: 600;
   color: var(--text);
-  border-color: rgba(9, 188, 138, 0.28);
+  border-color: rgba(16, 185, 129, 0.25);
   background-image: var(--select-chevron);
   background-repeat: no-repeat;
   background-position: right 11px center;
   background-size: 20px;
 }
+
 select:hover {
-  border-color: rgba(9, 188, 138, 0.45);
+  border-color: rgba(16, 185, 129, 0.40);
 }
+
 select:focus {
   border-color: var(--teal);
   box-shadow: var(--ring);
 }
+
 select::-ms-expand {
   display: none;
 }
+
 select option,
 select optgroup {
-  background: var(--surface2);
+  background: var(--surface);
   color: var(--text);
   font-weight: 600;
   font-size: 14px;
   padding: 10px 12px;
 }
+
 select option:checked,
 select option:hover {
-  background: rgba(9, 188, 138, 0.25);
+  background: rgba(16, 185, 129, 0.15);
   color: var(--text);
 }
+
 .inv-line select {
   font-size: 13px;
   font-weight: 600;
   padding: 8px 36px 8px 10px;
   min-height: 36px;
 }
+
+/* ── Labels ── */
 label {
   font-size: 12px;
   font-weight: 600;
@@ -196,12 +227,22 @@ label {
   display: block;
   margin-bottom: 4px;
 }
+
+/* ── Premium Scrollbar ── */
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
 }
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
 ::-webkit-scrollbar-thumb {
-  background: var(--border);
+  background: var(--border2);
   border-radius: 10px;
 }
 
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text3);
+}

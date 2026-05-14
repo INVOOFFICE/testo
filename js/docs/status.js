@@ -1,5 +1,7 @@
 // Statuts autorisés par type de document.
 
+import { docsCtx } from './context.js';
+
 export const DOC_STATUS_MAP = {
   F: [
     { value: 'Brouillon', label: 'Brouillon' },
@@ -35,7 +37,7 @@ export function updateDocStatus(preserveValue) {
   const type = typeEl.value;
   const statuses = DOC_STATUS_MAP[type] || DOC_STATUS_MAP['F'];
   const current = preserveValue || statusEl.value;
-  clearChildren(statusEl);
+  docsCtx.clearChildren(statusEl);
   statuses.forEach(s => {
     const o = document.createElement('option');
     o.value = s.value;
@@ -45,5 +47,5 @@ export function updateDocStatus(preserveValue) {
   // Restore previously selected value if it's still valid for the new type
   const still = statuses.find(s => s.value === current);
   statusEl.value = still ? current : statuses[0].value;
-  if (typeof refreshThemedSelect === 'function') refreshThemedSelect('doc-status');
+  docsCtx.refreshThemedSelect('doc-status');
 }

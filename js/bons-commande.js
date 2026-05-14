@@ -90,7 +90,7 @@ function populateBCFournSelect(selectedId) {
   sel.appendChild(o0);
   const addOption = document.createElement('option');
   addOption.value = '__new_supplier__';
-  addOption.textContent = '➕ Ajouter un fournisseur';
+  addOption.innerHTML = window.ICONS.plus + ' Ajouter un fournisseur';
   sel.appendChild(addOption);
   list.forEach(f => {
     const o = document.createElement('option');
@@ -226,7 +226,7 @@ function renderBonsCommande() {
       del.title = 'Supprimer';
       del.setAttribute('data-action', 'bc-delete');
       del.setAttribute('data-id', enc);
-      del.textContent = '🗑';
+      del.innerHTML = window.ICONS.trash;
       wrap.appendChild(del);
     }
     td6.appendChild(wrap);
@@ -308,7 +308,7 @@ function renderBCEditLines() {
       rm.setAttribute('data-action', 'bc-remove-line');
       rm.dataset.index = String(i);
       rm.title = 'Retirer';
-      rm.textContent = '✕';
+      rm.innerHTML = window.ICONS.closeX;
       tdR.appendChild(rm);
       tr.appendChild(tdN);
       tr.appendChild(tdQ);
@@ -467,7 +467,7 @@ function openViewBC(id) {
       if (l.stockId) {
         const lk = document.createElement('div');
         lk.style.cssText = 'font-size:10px;color:var(--text3)';
-        lk.textContent = 'Lien stock ✓';
+        lk.innerHTML = 'Lien stock ' + window.ICONS.checkCircle;
         tdN.appendChild(lk);
       }
       const tdQ = document.createElement('td');
@@ -534,7 +534,7 @@ function saveBC() {
       updatedAt: now,
     };
     save('bonsCommande');
-    toast('Bon de commande enregistré ✓', 'suc');
+    toast('Bon de commande enregistré', 'suc');
   } else {
     const bc = {
       id: 'bc_' + Date.now(),
@@ -550,7 +550,7 @@ function saveBC() {
     };
     DB.bonsCommande.unshift(bc);
     save('bonsCommande');
-    toast('Bon de commande créé ✓', 'suc');
+    toast('Bon de commande créé', 'suc');
   }
   closeModal('modal-bon-commande');
   renderBonsCommande();
@@ -573,7 +573,7 @@ async function receiveBC(id) {
     title: 'Réceptionner la commande ?',
     message:
       'Les quantités seront <strong>ajoutées au stock</strong> pour chaque article lié. Les prix d’achat seront mis à jour si renseignés.<br><br>Confirmer la réception ?',
-    icon: '📦',
+    icon: window.ICONS.package,
     okLabel: 'Réceptionner',
     okStyle: 'primary',
   });
@@ -604,7 +604,7 @@ async function receiveBC(id) {
   save('bonsCommande');
   renderBonsCommande();
   if (document.getElementById('page-stock')?.classList.contains('active')) renderStock();
-  toast('Stock mis à jour — commande réceptionnée ✓', 'suc');
+  toast('Stock mis à jour — commande réceptionnée', 'suc');
 }
 
 async function cancelBC(id) {
@@ -613,7 +613,7 @@ async function cancelBC(id) {
   const ok = await showConfirm({
     title: 'Annuler ce bon ?',
     message: 'Le bon passera au statut <strong>Annulé</strong>.',
-    icon: '⚠️',
+    icon: window.ICONS.alertTriangle,
     okLabel: 'Annuler le bon',
     okStyle: 'danger',
   });
@@ -631,7 +631,7 @@ async function deleteBC(id) {
   const ok = await showConfirm({
     title: 'Supprimer ce bon ?',
     message: 'Cette action est définitive.',
-    icon: '🗑',
+    icon: window.ICONS.trash,
     okLabel: 'Supprimer',
     okStyle: 'danger',
   });
@@ -769,7 +769,7 @@ function bcPickStock(id) {
       tva: Number(a.tva) || 20,
     });
     renderBCEditLines();
-    toast(`${a.name} ajouté ✓`, 'suc');
+    toast(`${a.name} ajouté`, 'suc');
   }
   renderBCPicker();
   closeModal('modal-bc-stock-picker');

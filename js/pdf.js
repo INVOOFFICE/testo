@@ -276,7 +276,7 @@ async function downloadDocPDF() {
     await _generateAndDownloadPDF(docObj, tpl, color);
   } catch (e) {
     console.error('[PDF] Erreur génération:', e);
-    toast('❌ ' + (e.message || 'Erreur PDF — réessayez'), 'err');
+    toast((e.message || 'Erreur PDF — réessayez'), 'err');
   } finally {
     hidePdfSpinner();
   }
@@ -285,13 +285,18 @@ async function downloadDocPDF() {
 async function _generateAndDownloadPDF(docObj, tpl, color) {
   const htmlStr = buildInvoiceHTML(docObj, tpl, color);
 
-  setPdfSpinnerStep('Rendu du document…', 15);
+  setPdfSpinnerStep('Chargement des librairies PDF…', 10);
 
-  // Vérifier que les librairies PDF sont disponibles
-  if (typeof html2canvas === 'undefined')
-    throw new Error('html2canvas non chargé — vérifiez votre connexion internet.');
-  if (!window.jspdf?.jsPDF)
-    throw new Error('jsPDF non chargé — vérifiez votre connexion internet.');
+  // Charger dynamiquement les librairies PDF si nécessaire
+  if (typeof html2canvas === 'undefined' || !window.jspdf?.jsPDF) {
+    try {
+      await window.loadVendors(['html2canvas.min.js', 'jspdf.umd.min.js']);
+    } catch (e) {
+      throw new Error('Échec chargement librairies PDF — vérifiez votre connexion.');
+    }
+  }
+
+  setPdfSpinnerStep('Rendu du document…', 15);
 
   // Create hidden iframe to render the HTML
   const iframe = document.createElement('iframe');
@@ -421,7 +426,7 @@ async function _generateAndDownloadPDF(docObj, tpl, color) {
     pdf.save(filename);
     setPdfSpinnerStep('PDF prêt !', 100);
     await new Promise(r => setTimeout(r, 400));
-    toast('✅ PDF téléchargé : ' + filename, 'suc');
+    toast('PDF téléchargé : ' + filename, 'suc');
   } catch (e) {
     cleanupIframe();
     throw e; // Remonter l'erreur au caller (downloadDocPDF) qui affiche le toast

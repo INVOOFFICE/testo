@@ -99,7 +99,7 @@ function generateHistPDFReport() {
     .footer{margin-top:18px;font-size:10px;color:#94A8BE;text-align:center}
     @media print{body{padding:12px}@page{margin:15mm}}
   </style></head><body>
-  <h1>📊 Rapport Historique Documents</h1>
+  <h1>window.ICONS.chart + " Rapport Historique" Documents</h1>
   <div class="sub">${companyNameSafe} &nbsp;·&nbsp; ${periodLabelSafe} &nbsp;·&nbsp; Généré le ${new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' })}</div>
   <div class="kpis">
     <div class="kpi"><div class="kpi-l">Documents</div><div class="kpi-v">${docs.length}</div></div>
@@ -125,5 +125,5 @@ function generateHistPDFReport() {
   }
   win.document.write(html);
   win.document.close();
-  toast(`📊 Rapport généré — ${docs.length} document(s)`, 'suc');
+  toast(`Rapport généré — ${docs.length} document(s)`, 'suc');
 }

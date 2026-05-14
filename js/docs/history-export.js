@@ -1,13 +1,19 @@
 import { getHistFiltered } from './history-filters.js';
+import { docsCtx } from './context.js';
 
-export function exportHistXLSX() {
+export async function exportHistXLSX() {
+  if (typeof XLSX === 'undefined') {
+    try {
+      await window.loadVendor('xlsx.full.min.js');
+    } catch (e) {
+      docsCtx.toast('Échec chargement librairie Excel — réessayez', 'err');
+      return;
+    }
+  }
+  const _DB = docsCtx.getDB();
   const docs = getHistFiltered();
   if (!docs.length) {
-    toast('Aucun document à exporter', 'err');
-    return;
-  }
-  if (typeof XLSX === 'undefined') {
-    toast('❌ Librairie Excel non chargée — vérifiez votre connexion', 'err');
+    docsCtx.toast('Aucun document à exporter', 'err');
     return;
   }
 
@@ -42,7 +48,7 @@ export function exportHistXLSX() {
         safeXlsxText({ F: 'Facture', D: 'Devis', BL: 'Bon de livraison', AV: 'Avoir' }[d.type] || d.type),
         safeXlsxText(d.status || ''),
       safeXlsxText(d.clientName || ''),
-        safeXlsxText(DB.clients.find(c => c.id === d.clientId)?.ice || ''),
+        safeXlsxText(docsCtx.getDB().clients.find(c => c.id === d.clientId)?.ice || ''),
         d.ht || 0,
       d.tva || 0,
       d.ttc || 0,
@@ -195,16 +201,16 @@ export function exportHistXLSX() {
   wb.Props = {
       Title: 'Historique INVO',
     Subject: 'Export documents',
-      Author: DB.settings.name || 'INVO',
+      Author: docsCtx.getDB().settings.name || 'INVO',
     CreatedDate: new Date(),
   };
 
   // ── Télécharger ──
     const period = new Date().toISOString().slice(0, 10);
   XLSX.writeFile(wb, `historique_${period}.xlsx`);
-  toast(`✅ Export Excel — ${docs.length} document(s)`, 'suc');
+  toast(`Export Excel — ${docs.length} document(s)`, 'suc');
   } catch (e) {
-    dbgErr('[exportHistXLSX] Erreur:', e);
-    toast('❌ Erreur export Excel — ' + (e.message || 'réessayez'), 'err');
+    docsCtx.dbgErr('[exportHistXLSX] Erreur:', e);
+    docsCtx.toast('Erreur export Excel — ' + (e.message || 'réessayez'), 'err');
   }
 }

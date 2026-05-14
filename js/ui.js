@@ -224,8 +224,14 @@ function toast(msg, type = '') {
     type === 'err' ? 'err' : type === 'suc' ? 'suc' : type === 'warn' ? 'warn' : '';
   el.className = 'toast-item ' + cls;
   const prefix =
-    type === 'suc' ? '✅ ' : type === 'err' ? '❌ ' : type === 'warn' ? '⚠️ ' : 'ℹ️ ';
-  el.textContent = prefix + msg;
+    type === 'suc'
+      ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:text-bottom;margin-right:4px"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>'
+      : type === 'err'
+        ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:text-bottom;margin-right:4px"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>'
+        : type === 'warn'
+          ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:text-bottom;margin-right:4px"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>'
+          : '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:text-bottom;margin-right:4px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>';
+  el.innerHTML = prefix + ' ' + msg;
   t.appendChild(el);
   setTimeout(() => el.remove(), 3500);
 }
@@ -256,20 +262,28 @@ let _confirmResolve = null;
 function showConfirm({
   title = 'Confirmer',
   message,
-  icon = '⚠️',
+  icon = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
   okLabel = 'Confirmer',
   okStyle = 'danger',
   cancelLabel = 'Annuler',
 } = {}) {
   return new Promise(resolve => {
     _confirmResolve = resolve;
-    document.getElementById('confirm-title').textContent = title;
+    const titleEl = document.getElementById('confirm-title');
+    if (titleEl) {
+      // Use innerHTML if title contains SVG, otherwise textContent for security
+      if (typeof title === 'string' && title.includes('<svg')) {
+        titleEl.innerHTML = title;
+      } else {
+        titleEl.textContent = title;
+      }
+    }
     const msgEl = document.getElementById('confirm-message');
     if (msgEl) {
       msgEl.style.whiteSpace = 'pre-line';
       msgEl.textContent = confirmMessageToPlainText(message);
     }
-    document.getElementById('confirm-icon').textContent = icon;
+    document.getElementById('confirm-icon').innerHTML = icon;
     document.getElementById('confirm-btn-cancel').textContent = cancelLabel;
     const okBtn = document.getElementById('confirm-btn-ok');
     okBtn.textContent = okLabel;
@@ -408,9 +422,15 @@ function toggleTheme() {
   const isDark = html.getAttribute('data-theme') === 'dark';
   html.setAttribute('data-theme', isDark ? 'light' : 'dark');
   const ti = document.getElementById('theme-icon');
-  if (ti) ti.textContent = isDark ? '🌙' : '☀️';
+  if (ti)
+    ti.innerHTML = isDark
+      ? '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>'
+      : '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>';
   const tbi = document.getElementById('theme-btn-icon');
-  if (tbi) tbi.textContent = isDark ? '🌙' : '☀️';
+  if (tbi)
+    tbi.innerHTML = isDark
+      ? '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>'
+      : '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>';
 }
 function openWhatsApp() {
   window.open(
@@ -715,6 +735,7 @@ function init() {
       ? cb => requestIdleCallback(cb, { timeout: 300 })
       : cb => setTimeout(cb, 0);
   scheduleOverview(() => renderOverview());
+  if (typeof loadVendor === 'function') loadVendor('chart.umd.min.js'); // eager preload for charts
   checkOnboarding();
   buildNotifications();
   if (typeof checkBackupReminder === 'function') checkBackupReminder();
@@ -810,6 +831,19 @@ function renderOverview(_deferred) {
   document.getElementById('stat-docs').textContent = periodDocs.length;
   document.getElementById('stat-docs-sub').textContent =
     months.length === 1 ? 'Ce mois' : `Sur ${months.length} mois`;
+
+  // Ensure Chart.js is loaded before rendering charts
+  if (typeof Chart === 'undefined' && typeof loadVendor === 'function') {
+    loadVendor('chart.umd.min.js').then(function () {
+      renderOvCAChart(months, periodDocs);
+      renderOvStatusChart(periodDocs);
+      renderOvTopClients(periodDocs);
+      renderOvTVA();
+      renderOvAlerts();
+      _setSkeletonLoading(['ov-chart-ca', 'ov-chart-status', 'ov-top-clients', 'ov-tva-breakdown'], false);
+    });
+    return;
+  }
   renderOvCAChart(months, periodDocs);
   renderOvStatusChart(periodDocs);
   renderOvTopClients(periodDocs);
@@ -848,23 +882,54 @@ function renderOvCAChart(months, docs) {
   if (!caEl) return;
   const cur = APP.ovCaChart;
   if (cur) cur.destroy();
+  // Create gradient fills
+  const ttcGradient = caEl.getContext('2d').createLinearGradient(0, 0, 0, 240);
+  ttcGradient.addColorStop(0, 'rgba(16, 185, 129, 0.35)');
+  ttcGradient.addColorStop(1, 'rgba(16, 185, 129, 0.02)');
+
+  const htGradient = caEl.getContext('2d').createLinearGradient(0, 0, 0, 240);
+  htGradient.addColorStop(0, 'rgba(52, 211, 153, 0.25)');
+  htGradient.addColorStop(1, 'rgba(52, 211, 153, 0.02)');
+
   APP.ovCaChart = new Chart(caEl, {
-    type: 'bar',
+    type: 'line',
     data: {
       labels,
       datasets: [
         {
           label: 'TTC',
           data: months.map(m => Math.round(ttcByMonth[m.key])),
-          backgroundColor: '#1D9E75',
-          borderRadius: 4,
+          borderColor: '#10B981',
+          backgroundColor: ttcGradient,
+          borderWidth: 3,
+          tension: 0.4,
+          fill: true,
+          pointBackgroundColor: '#10B981',
+          pointBorderColor: '#ffffff',
+          pointBorderWidth: 2,
+          pointRadius: 4,
+          pointHoverRadius: 6,
+          pointHoverBackgroundColor: '#059669',
+          pointHoverBorderColor: '#ffffff',
+          pointHoverBorderWidth: 3,
           order: 1,
         },
         {
           label: 'HT',
           data: months.map(m => Math.round(htByMonth[m.key])),
-          backgroundColor: '#9FE1CB',
-          borderRadius: 4,
+          borderColor: '#34D399',
+          backgroundColor: htGradient,
+          borderWidth: 2,
+          tension: 0.4,
+          fill: true,
+          pointBackgroundColor: '#34D399',
+          pointBorderColor: '#ffffff',
+          pointBorderWidth: 2,
+          pointRadius: 3,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: '#10B981',
+          pointHoverBorderColor: '#ffffff',
+          pointHoverBorderWidth: 3,
           order: 2,
         },
       ],
@@ -872,25 +937,53 @@ function renderOvCAChart(months, docs) {
     options: {
       responsive: true,
       maintainAspectRatio: false,
+      interaction: {
+        mode: 'index',
+        intersect: false,
+      },
       plugins: {
         legend: { display: false },
-        tooltip: { callbacks: { label: ctx => `${ctx.dataset.label}: ${fmt(ctx.parsed.y)}` } },
+        tooltip: {
+          backgroundColor: isDark ? 'rgba(15, 23, 36, 0.95)' : 'rgba(255, 255, 255, 0.95)',
+          titleColor: isDark ? '#e2e8f0' : '#0f172a',
+          bodyColor: isDark ? '#94a3b8' : '#64748b',
+          borderColor: isDark ? 'rgba(16, 185, 129, 0.3)' : 'rgba(16, 185, 129, 0.2)',
+          borderWidth: 1,
+          padding: 12,
+          cornerRadius: 8,
+          displayColors: true,
+          boxPadding: 4,
+          callbacks: {
+            label: ctx => `${ctx.dataset.label}: ${fmt(ctx.parsed.y)}`,
+          },
+        },
       },
       scales: {
         x: {
-          ticks: { color: textCol, font: { size: 10 }, maxRotation: 0 },
+          ticks: {
+            color: textCol,
+            font: { size: 11, weight: '500' },
+            maxRotation: 0,
+          },
           grid: { display: false },
           border: { display: false },
         },
         y: {
           ticks: {
             color: textCol,
-            font: { size: 10 },
+            font: { size: 11, weight: '500' },
             callback: v => (v >= 1000 ? Math.round(v / 1000) + 'k' : v),
           },
-          grid: { color: gridCol },
+          grid: {
+            color: gridCol,
+            drawBorder: false,
+          },
           border: { display: false },
         },
+      },
+      animation: {
+        duration: 1000,
+        easing: 'easeOutQuart',
       },
     },
   });
@@ -906,44 +999,113 @@ function renderOvStatusChart(docs) {
   });
   const labels = Object.keys(counts).filter(k => counts[k] > 0);
   const data = labels.map(k => counts[k]);
-  const colors = { Payé: '#1D9E75', Envoyé: '#378ADD', Brouillon: '#888780', Annulé: '#E24B4A' };
+  // Premium color palette with hover states
+  const colors = {
+    Payé: '#10B981',
+    Envoyé: '#3B82F6',
+    Brouillon: '#94A3B8',
+    Annulé: '#EF4444',
+  };
+  const hoverColors = {
+    Payé: '#059669',
+    Envoyé: '#2563EB',
+    Brouillon: '#64748B',
+    Annulé: '#DC2626',
+  };
   const bgs = labels.map(k => colors[k]);
+  const hoverBgs = labels.map(k => hoverColors[k]);
   const total = data.reduce((a, b) => a + b, 0) || 1;
+
+  // Update legend with premium styling
   clearChildren(leg);
   labels.forEach((l, i) => {
     const span = document.createElement('span');
-    span.style.cssText = 'display:flex;align-items:center;gap:4px';
+    span.style.cssText = 'display:flex;align-items:center;gap:6px;padding:4px 8px;border-radius:6px;transition:background 0.2s';
+    span.className = 'status-legend-item';
     const dot = document.createElement('span');
-    dot.style.cssText = `width:9px;height:9px;border-radius:2px;background:${bgs[i]};display:inline-block`;
+    dot.style.cssText = `width:10px;height:10px;border-radius:50%;background:${bgs[i]};display:inline-block;box-shadow:0 2px 4px ${bgs[i]}40`;
     span.appendChild(dot);
-    span.appendChild(document.createTextNode(`${l} ${Math.round((data[i] / total) * 100)}%`));
+    const text = document.createElement('span');
+    text.style.cssText = 'font-weight:500;font-size:12px';
+    text.textContent = `${l} ${Math.round((data[i] / total) * 100)}%`;
+    span.appendChild(text);
     leg.appendChild(span);
   });
+
   const cur = APP.ovStatusChart;
   if (cur) cur.destroy();
+
+  // Center text plugin
+  const centerTextPlugin = {
+    id: 'centerText',
+    beforeDraw: (chart) => {
+      const { ctx, chartArea: { top, bottom, left, right } } = chart;
+      const centerX = (left + right) / 2;
+      const centerY = (top + bottom) / 2;
+
+      ctx.save();
+      ctx.font = `bold 24px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif`;
+      ctx.fillStyle = isDark ? '#e2e8f0' : '#0f172a';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(String(total), centerX, centerY - 6);
+
+      ctx.font = `500 11px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif`;
+      ctx.fillStyle = isDark ? '#64748b' : '#94a3b8';
+      ctx.fillText('Documents', centerX, centerY + 14);
+      ctx.restore();
+    },
+  };
+
   APP.ovStatusChart = new Chart(stEl, {
     type: 'doughnut',
-    data: { labels, datasets: [{ data, backgroundColor: bgs, borderWidth: 0, hoverOffset: 3 }] },
+    data: {
+      labels,
+      datasets: [{
+        data,
+        backgroundColor: bgs,
+        hoverBackgroundColor: hoverBgs,
+        borderWidth: 2,
+        borderColor: isDark ? 'rgba(15, 23, 36, 0.8)' : 'rgba(255, 255, 255, 0.8)',
+        hoverOffset: 8,
+        borderRadius: 6,
+        spacing: 2,
+      }],
+    },
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      cutout: '70%',
+      cutout: '68%',
       plugins: {
         legend: { display: false },
         tooltip: {
-          backgroundColor: '#1a2736',
-          borderColor: 'rgba(9,188,138,.3)',
+          backgroundColor: isDark ? 'rgba(15, 23, 36, 0.95)' : 'rgba(255, 255, 255, 0.95)',
+          titleColor: isDark ? '#e2e8f0' : '#0f172a',
+          bodyColor: isDark ? '#94a3b8' : '#64748b',
+          borderColor: isDark ? 'rgba(16, 185, 129, 0.3)' : 'rgba(16, 185, 129, 0.2)',
           borderWidth: 1,
-          titleColor: '#E8EEF4',
-          bodyColor: '#94A8BE',
-          padding: 10,
+          padding: 12,
+          cornerRadius: 8,
+          displayColors: true,
+          boxPadding: 4,
           callbacks: {
             label: ctx =>
               `${ctx.label}: ${ctx.parsed} (${Math.round((ctx.parsed / total) * 100)}%)`,
           },
         },
       },
+      animation: {
+        animateRotate: true,
+        animateScale: true,
+        duration: 1200,
+        easing: 'easeOutQuart',
+      },
+      hover: {
+        mode: 'nearest',
+        intersect: true,
+      },
     },
+    plugins: [centerTextPlugin],
   });
 }
 function renderOvTopClients(docs) {
@@ -1209,10 +1371,10 @@ function _renderSearchQuickActions(container) {
   title.textContent = 'Actions rapides';
   container.appendChild(title);
   const actions = [
-    { act: 'new-facture', icon: '📄', label: 'Nouvelle facture', sub: 'Créer un document' },
-    { act: 'new-client', icon: '👤', label: 'Nouveau client', sub: '' },
-    { act: 'new-stock', icon: '📦', label: 'Nouvel article', sub: '' },
-    { act: 'open-settings', icon: '⚙️', label: 'Paramètres', sub: '' },
+    { act: 'new-facture', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>', label: 'Nouvelle facture', sub: 'Créer un document' },
+    { act: 'new-client', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>', label: 'Nouveau client', sub: '' },
+    { act: 'new-stock', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>', label: 'Nouvel article', sub: '' },
+    { act: 'open-settings', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>', label: 'Paramètres', sub: '' },
   ];
   actions.forEach(({ act, icon, label, sub }) => {
     const item = document.createElement('div');
@@ -1220,7 +1382,7 @@ function _renderSearchQuickActions(container) {
     item.setAttribute('data-quick-action', act);
     const ic = document.createElement('div');
     ic.className = 'si-icon';
-    ic.textContent = icon;
+    ic.innerHTML = icon;
     const col = document.createElement('div');
     const lab = document.createElement('div');
     lab.className = 'si-label';
@@ -1281,7 +1443,9 @@ function renderSearchResults() {
       const sc = statusClass[d.status] || 'draft';
       results.push({
         cat: 'Documents',
-        icon: d.status === 'Annulé' ? '🚫' : '📄',
+        icon: d.status === 'Annulé'
+          ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>'
+          : '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>',
         docRef: d.ref || '',
         statusBadge: { cls: sc, text: d.status || '' },
         sub: `${typeLabel[d.type] || d.type || ''} · ${d.clientName || 'N/A'} · ${d.date || ''}`,
@@ -1300,7 +1464,7 @@ function renderSearchResults() {
     .forEach(c => {
       results.push({
         cat: 'Clients',
-        icon: '👥',
+        icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
         labelText: c.name || '',
         sub: [c.email, c.phone, c.city].filter(Boolean).join(' · ') || 'Aucune info',
         right: null,
@@ -1324,7 +1488,7 @@ function renderSearchResults() {
       const pm = typeof getGlobalPriceMode === 'function' ? getGlobalPriceMode() : 'TTC';
       results.push({
         cat: 'Stock',
-        icon: '📦',
+        icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>',
         labelText: a.name || '',
         sub: `${a.category || '—'} · Stock: ${a.qty || 0} · ${fmt(sellShown)} ${pm === 'HT' ? 'HT' : 'TTC'}`,
         rightLowStock: (a.qty || 0) < 5,
@@ -1363,7 +1527,7 @@ function renderSearchResults() {
     item.setAttribute('data-search-idx', String(idx));
     const ic = document.createElement('div');
     ic.className = 'si-icon';
-    ic.textContent = r.icon;
+    ic.innerHTML = r.icon;
     const mid = document.createElement('div');
     mid.style.cssText = 'flex:1;min-width:0';
     const lab = document.createElement('div');
@@ -1479,7 +1643,7 @@ function renderNotifList() {
   if (!APP.notifications.length) {
     const empty = document.createElement('div');
     empty.className = 'notif-empty';
-    empty.textContent = 'Aucune notification ✓';
+    empty.innerHTML = window.ICONS.checkCircle + ' Aucune notification';
     list.appendChild(empty);
     return;
   }
@@ -1548,29 +1712,29 @@ function markAllRead() {
   APP.notifications.forEach(n => (n.unread = false));
   updateNotifBadge();
   renderNotifList();
-  toast('Tout marqué comme lu ✓', 'suc');
+  toast('Tout marqué comme lu', 'suc');
 }
 
 // ── Onboarding ──
 // ═══════════════════════════════════════════
 const OB_STEPS = [
   {
-    icon: '🏢',
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4 8 4v14"/><path d="M9 21v-6h6v6"/><path d="M10 9h4"/><path d="M10 13h4"/></svg>',
     title: 'Votre entreprise',
     desc: 'Renseignez vos informations légales. Elles apparaîtront sur toutes vos factures.',
     html: `<div class="field-row c2"><div class="form-group"><label for="ob-name">Nom / Raison Sociale *</label><input id="ob-name" name="onboarding-company-name" autocomplete="organization" placeholder="Votre Entreprise SARL"></div><div class="form-group"><label for="ob-phone">Téléphone</label><input id="ob-phone" name="onboarding-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+212 6XX XX XX XX"></div></div><div class="form-group"><label for="ob-address">Adresse</label><input id="ob-address" name="onboarding-address" autocomplete="street-address" placeholder="N° Rue, Ville"></div><div class="field-row c2"><div class="form-group"><label for="ob-ice">ICE</label><input id="ob-ice" name="onboarding-ice" placeholder="000000000000000" maxlength="15"></div><div class="form-group"><label for="ob-if">IF</label><input id="ob-if" name="onboarding-if" placeholder="00000000" maxlength="8" pattern="\\d{1,8}" inputmode="numeric"></div></div>`,
   },
   {
-    icon: '👥',
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
     title: 'Votre premier client',
     desc: 'Ajoutez un client pour pouvoir lui émettre des factures.',
     html: `<div class="field-row c2"><div class="form-group"><label for="ob-cname">Nom / Raison Sociale *</label><input id="ob-cname" name="onboarding-client-name" autocomplete="organization" placeholder="Client SARL"></div><div class="form-group"><label for="ob-cice">ICE client</label><input id="ob-cice" name="onboarding-client-ice" placeholder="000000000000000" maxlength="15"></div></div><div class="field-row c2"><div class="form-group"><label for="ob-cemail">Email</label><input id="ob-cemail" name="onboarding-client-email" type="email" autocomplete="email" placeholder="contact@client.ma"></div><div class="form-group"><label for="ob-cphone">Téléphone</label><input id="ob-cphone" name="onboarding-client-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+212 6XX XX XX XX"></div></div><div class="form-group"><label for="ob-ccity">Ville</label><input id="ob-ccity" name="onboarding-client-city" autocomplete="address-level2" placeholder="Casablanca"></div>`,
   },
   {
-    icon: '🎉',
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/><path d="M10.5 14l2-2"/><path d="M14 18l2-2"/><path d="M2 20a2 2 0 0 0 2 2h4l6-6-6-6H4a2 2 0 0 0-2 2v8Z"/><path d="M9 11l3-3"/></svg>',
     title: "C'est prêt !",
     desc: 'INVOO OFFICE est configuré. Créez maintenant votre première facture.',
-    html: `<div class="ob-finish-wrap"><div class="ob-finish-emoji">✅</div><div class="ob-finish-text">Votre compte est prêt.<br><strong class="ob-finish-strong">Conseil DGI :</strong> Pensez à renseigner votre RC, TP et CNSS dans les Paramètres pour une conformité complète.</div></div>`,
+    html: `<div class="ob-finish-wrap"><div class="ob-finish-emoji"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><div class="ob-finish-text">Votre compte est prêt.<br><strong class="ob-finish-strong">Conseil DGI :</strong> Pensez à renseigner votre RC, TP et CNSS dans les Paramètres pour une conformité complète.</div></div>`,
   },
 ];
 let obCurrentStep = 0;
@@ -1601,14 +1765,14 @@ function checkOnboarding() {
 }
 function renderObStep(step) {
   const s = OB_STEPS[step];
-  document.getElementById('ob-icon').textContent = s.icon;
+  document.getElementById('ob-icon').innerHTML = s.icon;
   document.getElementById('ob-title').textContent = s.title;
   document.getElementById('ob-desc').textContent = s.desc;
   setStaticHtml(document.getElementById('ob-body'), s.html);
   document.getElementById('ob-progress-fill').style.width =
     `${((step + 1) / OB_STEPS.length) * 100}%`;
   document.getElementById('ob-next-btn').textContent =
-    step === OB_STEPS.length - 1 ? '🚀 Créer ma première facture' : 'Continuer →';
+    step === OB_STEPS.length - 1 ? '${window.ICONS.rocket} Créer ma première facture' : 'Continuer →';
   document.querySelectorAll('.ob-step-dot').forEach((d, i) => {
     d.classList.toggle('active', i === step);
     d.classList.toggle('done', i < step);
@@ -1653,7 +1817,7 @@ function obNext() {
       };
       DB.clients.push(client);
       save('clients');
-      toast(`Client "${cname}" ajouté ✓`, 'suc');
+      toast(`Client "${cname}" ajouté`, 'suc');
     }
   } else if (APP.ui.obCurrentStep === 2) {
     finishOnboarding();

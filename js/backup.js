@@ -277,7 +277,7 @@ function saveSettings() {
   if (sak && sak.value.trim()) s.supabaseAnonKey = sak.value.trim();
   save('settings');
   if (typeof syncSupabaseSettingsUI === 'function') syncSupabaseSettingsUI();
-  toast('Paramètres sauvegardés ✓', 'suc');
+  toast('Paramètres sauvegardés', 'suc');
   updateSettingsScore();
   if (typeof renderBackupReminderStatus === 'function') renderBackupReminderStatus();
 }
@@ -346,7 +346,7 @@ function updateSettingsScore() {
         .join(', ');
   } else {
     foot.style.color = 'var(--brand)';
-    foot.textContent = '✅ Profil complet — conformité DGI maximale';
+    foot.innerHTML = window.ICONS.checkCircle + ' Profil complet — conformité DGI maximale';
   }
   scoreEl.appendChild(row1);
   scoreEl.appendChild(barBg);
@@ -384,7 +384,7 @@ function exportAllData() {
   a.download = `invo-backup-${today()}.json`;
   a.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
-  toast('Sauvegarde exportée ✓', 'suc');
+  toast('Sauvegarde exportée', 'suc');
 }
 function importAllData() {
   document.getElementById('import-file').click();
@@ -539,7 +539,7 @@ function handleImport(input) {
         title: 'Importer les données ?',
         message:
           'Toutes vos données actuelles seront <strong>remplacées</strong> par celles du fichier.<br><br>Cette action est irréversible.',
-        icon: '📥',
+        icon: window.ICONS.download,
         okLabel: 'Importer',
         okStyle: 'danger',
       });
@@ -557,7 +557,7 @@ function handleImport(input) {
       if (typeof saveAllAsync === 'function') await saveAllAsync();
       else saveAll();
       renderOverview();
-      toast('Données importées ✓ — rechargement…', 'suc');
+      toast('Données importées — rechargement…', 'suc');
       setTimeout(() => location.reload(), 120);
     } catch {
       toast('Fichier invalide (JSON attendu, même format que l’export « Backup JSON »)', 'err');
@@ -571,7 +571,7 @@ async function clearAllData() {
     title: 'Effacer TOUTES les données ?',
     message:
       'Clients, documents, stock, fournisseurs, bons de commande et paramètres seront <strong>définitivement supprimés</strong>.<br><br>Cette action est <strong>irréversible</strong>.',
-    icon: '🚨',
+    icon: window.ICONS.alertOctagon,
     okLabel: 'Tout effacer',
     okStyle: 'danger',
   });
@@ -639,6 +639,6 @@ function clearCache() {
   // Vide uniquement le cache mémoire OPFS — les données sur disque restent intactes
   APP.opfs.memCache = {};
   // Force aussi le rechargement depuis le stockage OPFS/localStorage
-  toast('🔄 Cache vidé — rechargement en cours…', 'suc');
+  toast('Cache vidé — rechargement en cours…', 'suc');
   setTimeout(() => location.reload(), 700);
 }

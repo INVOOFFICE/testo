@@ -1,5 +1,7 @@
 // Validation ICE et panneau de conformite DGI.
 
+import { docsCtx } from './context.js';
+
 export function validateICEInput(input) {
   const v = (input.value || '').replace(/\D/g, '');
   input.value = v;
@@ -16,7 +18,7 @@ const DGI_CHECKS = [
     label: 'ICE vendeur',
     tip: '15 chiffres, art. 145 CGI',
     check: () => {
-      const v = (DB.settings.ice || '').replace(/\D/g, '');
+      const v = (docsCtx.getDB().settings.ice || '').replace(/\D/g, '');
       return v.length === 15 ? 'ok' : v.length > 0 ? 'warn' : 'err';
     },
   },
@@ -24,30 +26,30 @@ const DGI_CHECKS = [
     id: 'if-v',
     label: 'IF vendeur',
     tip: 'Identifiant Fiscal obligatoire',
-    check: () => (DB.settings.if ? 'ok' : 'err'),
+    check: () => (docsCtx.getDB().settings.if ? 'ok' : 'err'),
   },
   {
     id: 'rc-v',
     label: 'RC vendeur',
     tip: 'Registre du Commerce obligatoire',
-    check: () => (DB.settings.rc ? 'ok' : 'err'),
+    check: () => (docsCtx.getDB().settings.rc ? 'ok' : 'err'),
   },
   {
     id: 'nom-v',
     label: 'Raison sociale',
     tip: 'Nom du vendeur obligatoire',
-    check: () => (DB.settings.name ? 'ok' : 'err'),
+    check: () => (docsCtx.getDB().settings.name ? 'ok' : 'err'),
   },
   {
     id: 'ice-c',
     label: 'ICE client',
-    tip: 'Obligatoire pour dÃ©duction TVA B2B',
+    tip: 'Obligatoire pour déduction TVA B2B',
     check: () => {
       const cid = (document.getElementById('doc-client') || {}).value;
       if (!cid || cid === '__new__') return 'warn';
       const type = (document.getElementById('doc-type') || {}).value;
       if (type === 'D' || type === 'BL') return 'ok';
-      const c = DB.clients.find(x => x.id === cid);
+      const c = docsCtx.getDB().clients.find(x => x.id === cid);
       if (!c) return 'warn';
       const v = (c.ice || '').replace(/\D/g, '');
       return v.length === 15 ? 'ok' : v.length > 0 ? 'warn' : 'err';
@@ -55,7 +57,7 @@ const DGI_CHECKS = [
   },
   {
     id: 'cli',
-    label: 'Client renseignÃ©',
+    label: 'Client renseigné',
     tip: 'Client obligatoire sur facture',
     check: () => {
       const cid = (document.getElementById('doc-client') || {}).value;
@@ -66,7 +68,7 @@ const DGI_CHECKS = [
   },
   {
     id: 'date',
-    label: "Date d'Ã©mission",
+    label: "Date d'émission",
     tip: 'Date obligatoire sur tout document',
     check: () => ((document.getElementById('doc-date') || {}).value ? 'ok' : 'err'),
   },
@@ -74,11 +76,11 @@ const DGI_CHECKS = [
     id: 'lignes',
     label: 'Au moins 1 article',
     tip: 'Document vide non valide',
-    check: () => (APP.docLines.length > 0 ? 'ok' : 'err'),
+    check: () => (docsCtx.getAPP().docLines.length > 0 ? 'ok' : 'err'),
   },
 ];
 
-const DGI_LBL = { ok: 'âœ“', warn: 'âš ', err: 'âœ—' };
+const DGI_LBL = { ok: '✓', warn: '⚠', err: '✗' };
 
 export function runDGICheck() {
   const list = document.getElementById('dgi-items-list');
@@ -87,7 +89,7 @@ export function runDGICheck() {
   let ok = 0,
     err = 0,
     warn = 0;
-  clearChildren(list);
+  docsCtx.clearChildren(list);
   DGI_CHECKS.forEach(c => {
     const s = c.check();
     if (s === 'ok') ok++;

@@ -5,8 +5,10 @@
   "scripts": {
     "test": "node tests/run-tests.mjs && jest",
     "test:jest": "jest",
+    "test:coverage": "jest --coverage",
     "audit": "npm audit --production",
     "check:merge": "node scripts/check-no-merge-conflicts.mjs",
+    "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
@@ -27,11 +29,16 @@
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
+    "@babel/core": "^7.29.0",
+    "@babel/preset-env": "^7.29.5",
     "@eslint/js": "^9.39.4",
+    "babel-jest": "^30.4.1",
     "eslint": "^9.39.4",
     "eslint-config-prettier": "^10.1.8",
     "globals": "^15.15.0",
     "jest": "^30.3.0",
-    "prettier": "^3.8.1"
+    "jest-environment-jsdom": "^30.4.1",
+    "prettier": "^3.8.1",
+    "typescript": "^6.0.3"
   }
 }

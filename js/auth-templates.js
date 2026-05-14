@@ -61,7 +61,7 @@ function buildActivationHTML(p) {
         </div>
         <div id="activation-error" role="alert" aria-live="assertive" class="auth-error-box"></div>
         <button type="button" data-auth-action="send-whatsapp" class="btn btn-secondary auth-btn-full auth-btn-inline">
-          <span>📲</span> Envoyer via WhatsApp
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><path d="M12 18h.01"/></svg> Envoyer via WhatsApp
         </button>
         <div id="activation-step-2" class="auth-act-step-2" aria-hidden="true">
           <div class="auth-field-wrap auth-field-wrap-gap">

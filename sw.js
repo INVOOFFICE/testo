@@ -4,7 +4,7 @@
 // ═══════════════════════════════════════════
 
 /** Nom du cache statique — incrémenter (ex. invo-v3) pour invalider tout le précache. */
-const CACHE_NAME = 'invo-v13';
+const CACHE_NAME = 'invo-v18';
 /** Mettre à true uniquement en dev : logs fetch dans networkFirstNoCache */
 const SW_DEBUG = false;
 
@@ -49,6 +49,7 @@ const PRECACHE_ASSETS = [
   './js/vendor/html2canvas.min.js',
   './js/vendor/chart.umd.min.js',
   './js/vendor/xlsx.full.min.js',
+  './js/vendor-loader.js',
   './js/vendor/flatpickr.min.js',
   './js/vendor/flatpickr.min.css',
   './js/vendor/flatpickr-fr.js',
@@ -69,6 +70,25 @@ const PRECACHE_ASSETS = [
   './js/invoices.js',
   './js/price-mode.js',
   './js/docs.js',
+  './js/docs/context.js',
+  './js/docs/doc-save.js',
+  './js/docs/doc-crud.js',
+  './js/docs/doc-lines.js',
+  './js/docs/totals.js',
+  './js/docs/refs.js',
+  './js/docs/status.js',
+  './js/docs/source-links.js',
+  './js/docs/reports.js',
+  './js/docs/history-filters.js',
+  './js/docs/history-render.js',
+  './js/docs/history-export.js',
+  './js/docs/dgi-checker.js',
+  './js/docs/whatsapp.js',
+  './js/docs/post-save-bar.js',
+  './js/docs/client-form.js',
+  './js/docs/pdf-actions.js',
+  './js/docs/conversion.js',
+  './js/docs/edit-history.js',
   './js/fournisseurs.js',
   './js/bons-commande.js',
   './js/app.js',

@@ -39,7 +39,7 @@ function templatePageOverview() {
   <div class="grid-ov-bottom">
     <div class="card ov-panel card-panel"><div class="card-header card-header-spaced"><div class="card-title">Top clients</div></div><div id="ov-top-clients"></div></div>
     <div class="card ov-panel card-panel"><div class="card-header card-header-spaced"><div class="card-title">TVA à déclarer</div><div class="card-subtitle">Ce mois — par taux</div></div><div id="ov-tva-breakdown"></div></div>
-    <div class="card ov-panel ov-panel-compact"><div class="card-title card-title-compact"><span aria-hidden="true">⚡</span> Alertes</div><div id="ov-alerts" class="ov-alerts"></div></div>
+    <div class="card ov-panel ov-panel-compact"><div class="card-title card-title-compact"><span aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span> Alertes</div><div id="ov-alerts" class="ov-alerts"></div></div>
   </div>
 </div>`
 }
@@ -57,7 +57,7 @@ function templatePageGenerate() {
         <svg aria-hidden="true" focusable="false" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
         Télécharger PDF
       </button>
-      <button type="button" class="btn btn-primary" id="btn-save-doc" aria-label="Sauvegarder le document"><span aria-hidden="true">💾</span> Sauvegarder</button>
+      <button type="button" class="btn btn-primary" id="btn-save-doc" aria-label="Sauvegarder le document"><span aria-hidden="true">${window.ICONS.save}</span> Sauvegarder</button>
     </div>
   </div>
 
@@ -74,13 +74,13 @@ function templatePageGenerate() {
 
   <!-- Config -->
   <div class="card card-section">
-    <div class="card-header card-header-spaced"><div class="card-title"><span aria-hidden="true">⚙️</span> Configuration du Document</div></div>
+    <div class="card-header card-header-spaced"><div class="card-title"><span aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span> Configuration du Document</div></div>
     <div class="grid-doc-config" role="group" aria-label="Configuration du document">
       <div class="form-group form-group-tight">
         <label for="doc-ref">Référence</label>
         <div style="display:flex;gap:6px;align-items:center;">
           <input type="text" id="doc-ref" class="doc-ref-editable" placeholder="Ex: F-2025-001" maxlength="40" style="flex:1;min-width:0;" autocomplete="off" spellcheck="false">
-          <button type="button" id="btn-regen-ref" title="Régénérer la référence automatiquement" style="padding:0 8px;height:var(--input-h,36px);background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius-sm,4px);cursor:pointer;font-size:1rem;flex-shrink:0;" aria-label="Régénérer référence">🔄</button>
+          <button type="button" id="btn-regen-ref" title="Régénérer la référence automatiquement" style="padding:0 8px;height:var(--input-h,36px);background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius-sm,4px);cursor:pointer;font-size:1rem;flex-shrink:0;" aria-label="Régénérer référence">${window.ICONS.refreshCw}</button>
         </div>
         <span id="doc-ref-hint" style="font-size:.75rem;margin-top:3px;display:none;"></span>
       </div>
@@ -110,7 +110,7 @@ function templatePageGenerate() {
       </div>
     </div>
     <div id="doc-source-hint-wrap" class="doc-source-hint-wrap">
-      <div class="doc-source-hint-title"><span aria-hidden="true">↩</span> Document source de l’avoir</div>
+      <div class="doc-source-hint-title"><span aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v6h6"/><path d="M3 13a9 9 0 1 0 3-7.7L3 8"/></svg></span> Document source de l’avoir</div>
       <div id="doc-source-hint-text" class="doc-source-hint-text">—</div>
     </div>
   </div>
@@ -121,11 +121,11 @@ function templatePageGenerate() {
       TVA 0% — Auto-entrepreneur (exonéré) : montants hors taxes. La mention légale figure sur le PDF. <span class="doc-ae-vat-banner-sub">TVA non applicable selon le régime de l’auto-entrepreneur (article 89 du CGI – Maroc).</span>
     </div>
     <div class="card-header card-header-articles">
-      <div class="card-title"><span aria-hidden="true">📦</span> Détails des articles</div>
+      <div class="card-title"><span aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg></span> Détails des articles</div>
       <div class="doc-articles-actions" role="group" aria-label="Ajouter des lignes ou articles au document">
         <div class="spacer"></div>
-        <button type="button" class="btn btn-secondary btn-sm" id="btn-add-line"><span aria-hidden="true">➕</span> Ligne libre</button>
-        <button type="button" class="btn btn-secondary btn-sm" id="btn-stock-picker"><span aria-hidden="true">🔍</span> Chercher dans le stock</button>
+        <button type="button" class="btn btn-secondary btn-sm" id="btn-add-line"><span aria-hidden="true">${window.ICONS.plus}</span> Ligne libre</button>
+        <button type="button" class="btn btn-secondary btn-sm" id="btn-stock-picker"><span aria-hidden="true">${window.ICONS.search}</span> Chercher dans le stock</button>
       </div>
     </div>
     <div id="doc-inv-header" class="doc-inv-header">
@@ -147,7 +147,7 @@ function templatePageGenerate() {
   <!-- Règlement + Notes -->
   <div class="grid-doc-bottom">
     <div class="card card-doc-payment">
-      <div class="card-header card-header-spaced"><div class="card-title"><span aria-hidden="true">💳</span> Règlement</div></div>
+      <div class="card-header card-header-spaced"><div class="card-title"><span aria-hidden="true">${window.ICONS.creditCard}</span> Règlement</div></div>
       <div class="grid-payment-cols" role="group" aria-label="Conditions et mode de paiement">
         <div class="form-group form-group-tight"><label for="doc-terms">Conditions</label>
           <select id="doc-terms" class="themed-select">
@@ -169,7 +169,7 @@ function templatePageGenerate() {
       </div>
     </div>
     <div class="card card-doc-notes">
-      <div class="card-header card-header-notes"><div class="card-title"><span aria-hidden="true">📝</span> Notes & Mentions</div><div class="doc-note-presets" role="group" aria-label="Mentions légales prédéfinies pour les notes du document"><button type="button" class="btn btn-sm btn-note-preset" data-note="Escompte de règlement : néant.">Escompte</button><button type="button" class="btn btn-sm btn-note-preset" data-note="Pénalités de retard : taux légal en vigueur.">Pénalités</button><button type="button" class="btn btn-sm btn-note-preset" data-note="Indemnité forfaitaire pour frais de recouvrement : 40 DH.">Recouvrement</button></div></div>
+      <div class="card-header card-header-notes"><div class="card-title"><span aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></span> Notes & Mentions</div><div class="doc-note-presets" role="group" aria-label="Mentions légales prédéfinies pour les notes du document"><button type="button" class="btn btn-sm btn-note-preset" data-note="Escompte de règlement : néant.">Escompte</button><button type="button" class="btn btn-sm btn-note-preset" data-note="Pénalités de retard : taux légal en vigueur.">Pénalités</button><button type="button" class="btn btn-sm btn-note-preset" data-note="Indemnité forfaitaire pour frais de recouvrement : 40 DH.">Recouvrement</button></div></div>
       <textarea id="doc-notes" rows="4" placeholder="Conditions particulieres, mentions legales, notes..." class="doc-notes-input" aria-label="Notes du document"></textarea>
     </div>
   </div>
@@ -178,8 +178,8 @@ function templatePageGenerate() {
   <!-- ── RÉSUMÉ FINANCIER avec TVA par taux ── -->
   <div class="card card-financial-summary">
     <div class="financial-summary-header">
-      <div class="card-title financial-summary-title"><span aria-hidden="true">💰</span> Résumé Financier</div>
-      <button type="button" class="btn btn-primary btn-save-footer" id="btn-save-doc-footer" aria-label="Sauvegarder le document"><span aria-hidden="true">💾</span> Sauvegarder</button>
+      <div class="card-title financial-summary-title"><span aria-hidden="true">${window.ICONS.wallet}</span> Résumé Financier</div>
+      <button type="button" class="btn btn-primary btn-save-footer" id="btn-save-doc-footer" aria-label="Sauvegarder le document"><span aria-hidden="true">${window.ICONS.save}</span> Sauvegarder</button>
     </div>
 
     <!-- Totaux globaux en ligne -->
@@ -209,7 +209,7 @@ function templatePageGenerate() {
     <div id="tva-by-rate-wrap" class="tva-rate-wrap">
       <div class="tva-rate-head">
         <span>Détail TVA par taux</span>
-        <span class="tva-rate-badge"><span aria-hidden="true">✓</span> Obligatoire DGI</span>
+        <span class="tva-rate-badge"><span aria-hidden="true">${window.ICONS.checkCircle}</span> Obligatoire DGI</span>
       </div>
       <div class="tbl-wrap">
         <table class="tva-breakdown-table">
@@ -269,8 +269,8 @@ function templatePageHistory() {
   </div>
   <div class="hist-footer-actions">
     <div class="hist-footer-buttons" role="group" aria-label="Exports de l’historique des documents">
-      <button type="button" class="btn btn-primary btn-sm" id="btn-hist-pdf-report"><span aria-hidden="true">📊</span> Générer Rapport PDF</button>
-      <button type="button" class="btn btn-secondary btn-sm" id="btn-export-hist-xlsx"><span aria-hidden="true">📄</span> Exporter Excel</button>
+      <button type="button" class="btn btn-primary btn-sm" id="btn-hist-pdf-report"><span aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg></span> Générer Rapport PDF</button>
+      <button type="button" class="btn btn-secondary btn-sm" id="btn-export-hist-xlsx"><span aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15.5 2H8a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L15.5 2z"/><polyline points="15 2 15 8 21 8"/><path d="M9 13h6"/><path d="M9 17h6"/></svg></span> Exporter Excel</button>
     </div>
     <div id="hist-pagination" class="pagination"></div>
   </div>
@@ -318,12 +318,12 @@ function templatePageStock() {
       <p>Gérez vos articles, quantités et prix ici.</p>
     </div>
     <div class="page-header-actions" role="group" aria-label="Actions sur le stock">
-      <button type="button" class="btn btn-primary" id="btn-add-article"><span aria-hidden="true">➕</span> Ajouter un article</button>
+      <button type="button" class="btn btn-primary" id="btn-add-article"><span aria-hidden="true">${window.ICONS.plus}</span> Ajouter un article</button>
       <button type="button" class="btn btn-secondary btn-inline-icon" id="btn-import-masse" title="CSV : mêmes champs que le tableau Stock. Aperçu obligatoire, contrôle des doublons (code-barres), fournisseur relié à la liste Fournisseurs si le nom correspond." aria-label="Importer le stock depuis un fichier CSV (aperçu obligatoire)">
         <svg aria-hidden="true" focusable="false" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
         Import CSV (aperçu)
       </button>
-      <button type="button" class="btn btn-secondary" id="btn-export-stock" title="Télécharge un fichier .csv (UTF-8, séparateur ;). Mêmes infos que le tableau + marge et valeur stock. Réouvrable dans Excel."><span aria-hidden="true">📊</span> Exporter CSV</button>
+      <button type="button" class="btn btn-secondary" id="btn-export-stock" title="Télécharge un fichier .csv (UTF-8, séparateur ;). Mêmes infos que le tableau + marge et valeur stock. Réouvrable dans Excel."><span aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg></span> Exporter CSV</button>
     </div>
   </div>
   <div class="grid4 stock-kpis">
@@ -341,8 +341,8 @@ function templatePageStock() {
       <option value="zero">Rupture (0)</option>
       <option value="ok">Stock OK</option>
     </select>
-    <button type="button" class="btn btn-secondary btn-sm" id="btn-stock-moves"><span aria-hidden="true">🧾</span> Mouvements</button>
-    <button type="button" class="btn btn-danger btn-sm" id="btn-clear-stock"><span aria-hidden="true">🗑</span> Tout supprimer</button>
+    <button type="button" class="btn btn-secondary btn-sm" id="btn-stock-moves"><span aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span> Mouvements</button>
+    <button type="button" class="btn btn-danger btn-sm" id="btn-clear-stock"><span aria-hidden="true">${window.ICONS.trash}</span> Tout supprimer</button>
   </div>
   <div class="tbl-wrap">
     <table><thead><tr><th>Article</th><th>Code barre</th><th>Catégorie</th><th>Fournisseur</th><th>Quantité</th><th id="stock-th-buy">Prix achat (TTC)</th><th id="stock-th-sell">Prix vente (TTC)</th><th>Marge</th><th>Actions</th></tr></thead>
@@ -358,12 +358,12 @@ function templatePageClients() {
   <div class="page-header flex page-header-split">
     <div><h1>Gestion des Clients</h1><p>Gérez vos relations clients et leurs informations de facturation.</p></div>
     <div class="page-header-actions" role="group" aria-label="Actions sur les clients">
-      <button type="button" class="btn btn-primary" id="btn-add-client"><span aria-hidden="true">➕</span> Nouveau Client</button>
+      <button type="button" class="btn btn-primary" id="btn-add-client"><span aria-hidden="true">${window.ICONS.plus}</span> Nouveau Client</button>
       <button type="button" class="btn btn-secondary btn-inline-icon" id="btn-import-clients-trigger" title="CSV : mêmes champs que le tableau Clients. Détection encodage (UTF-8 ou Windows-1252). Doublons nom+ICE ignorés." aria-label="Importer les clients depuis un fichier CSV">
         <svg aria-hidden="true" focusable="false" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
         Import CSV
       </button>
-      <button type="button" class="btn btn-secondary" id="btn-export-clients" title="Télécharge un fichier Excel .xlsx (clients)."><span aria-hidden="true">📊</span> Exporter</button>
+      <button type="button" class="btn btn-secondary" id="btn-export-clients" title="Télécharge un fichier Excel .xlsx (clients)."><span aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg></span> Exporter</button>
     </div>
   </div>
   <div class="grid3 section-kpis">
@@ -395,21 +395,21 @@ function templatePageFournisseurs() {
       <p>Gérez vos fournisseurs, leurs informations légales et leur score de fiabilité.</p>
     </div>
     <div class="page-header-actions" role="group" aria-label="Actions sur les fournisseurs">
-      <button type="button" class="btn btn-primary" id="btn-add-fourn"><span aria-hidden="true">➕</span> Nouveau Fournisseur</button>
+      <button type="button" class="btn btn-primary" id="btn-add-fourn"><span aria-hidden="true">${window.ICONS.plus}</span> Nouveau Fournisseur</button>
       <button type="button" class="btn btn-secondary btn-inline-icon" id="btn-import-fourn" title="CSV : mêmes champs que la fiche fournisseur. Aperçu obligatoire, doublons nom+ICE signalés, mise à jour par id." aria-label="Importer les fournisseurs depuis un fichier CSV (aperçu obligatoire)">
         <svg aria-hidden="true" focusable="false" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
         Import CSV (aperçu)
       </button>
-      <button type="button" class="btn btn-secondary" id="btn-export-fourn" title="Fichier .csv (UTF-8, séparateur ;). Réouvrable dans Excel."><span aria-hidden="true">📊</span> Exporter CSV</button>
+      <button type="button" class="btn btn-secondary" id="btn-export-fourn" title="Fichier .csv (UTF-8, séparateur ;). Réouvrable dans Excel."><span aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg></span> Exporter CSV</button>
     </div>
   </div>
 
   <!-- KPIs -->
   <div class="grid4 fournisseurs-kpis">
     <div class="stat-card"><div class="stat-label">Total fournisseurs</div><div class="stat-val blue" id="fourn-kpi-count">0</div></div>
-    <div class="stat-card"><div class="stat-label"><span aria-hidden="true">🟢</span> Fiables (A)</div><div class="stat-val green" id="fourn-kpi-a">0</div></div>
-    <div class="stat-card"><div class="stat-label"><span aria-hidden="true">🔵</span> Corrects (B)</div><div class="stat-val" id="fourn-kpi-b">0</div></div>
-    <div class="stat-card"><div class="stat-label"><span aria-hidden="true">🟠</span> À surveiller (C)</div><div class="stat-val stat-val-accent" id="fourn-kpi-c">0</div></div>
+    <div class="stat-card"><div class="stat-label"><span aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg></span> Fiables (A)</div><div class="stat-val green" id="fourn-kpi-a">0</div></div>
+    <div class="stat-card"><div class="stat-label"><span aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg></span> Corrects (B)</div><div class="stat-val" id="fourn-kpi-b">0</div></div>
+    <div class="stat-card"><div class="stat-label"><span aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></span> À surveiller (C)</div><div class="stat-val stat-val-accent" id="fourn-kpi-c">0</div></div>
   </div>
 
   <!-- Filtres -->
@@ -428,10 +428,10 @@ function templatePageFournisseurs() {
   <div id="fourn-grid" class="fourn-grid"></div>
   <div id="fournisseurs-list-pagination" class="list-pagination-wrap" aria-label="Pagination fournisseurs"></div>
   <div id="fourn-empty" class="empty-state">
-    <div class="empty-icon" aria-hidden="true">🏭</div>
+    <div class="empty-icon" aria-hidden="true"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4 8 4v14"/><path d="M9 21v-6h6v6"/><path d="M10 9h4"/><path d="M10 13h4"/></svg></div>
     <h3>Aucun fournisseur enregistré</h3>
     <p>Ajoutez votre premier fournisseur pour commencer.</p>
-    <button type="button" class="btn btn-primary btn-mt12" id="btn-add-fourn-empty"><span aria-hidden="true">➕</span> Ajouter un fournisseur</button>
+    <button type="button" class="btn btn-primary btn-mt12" id="btn-add-fourn-empty"><span aria-hidden="true">${window.ICONS.plus}</span> Ajouter un fournisseur</button>
   </div>
 </div>`;
 }
@@ -443,7 +443,7 @@ function templatePageBonsCommande() {
       <h1>Bons de commande</h1>
       <p>Commandes fournisseurs liées au stock : à la réception, les quantités sont ajoutées automatiquement aux articles.</p>
     </div>
-    <button type="button" class="btn btn-primary" id="btn-bc-new"><span aria-hidden="true">➕</span> Nouveau bon</button>
+    <button type="button" class="btn btn-primary" id="btn-bc-new"><span aria-hidden="true">${window.ICONS.plus}</span> Nouveau bon</button>
   </div>
   <div class="grid3 section-kpis">
     <div class="stat-card"><div class="stat-label">Total bons</div><div class="stat-val blue" id="bc-kpi-total">0</div></div>
@@ -467,10 +467,10 @@ function templatePageBonsCommande() {
     </table>
   </div>
   <div id="bc-empty" class="empty-state">
-    <div class="empty-icon" aria-hidden="true">📋</div>
+    <div class="empty-icon" aria-hidden="true"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg></div>
     <h3>Aucun bon de commande</h3>
     <p>Créez un bon pour un fournisseur et ajoutez des articles du stock (ou tous les articles si besoin).</p>
-    <button type="button" class="btn btn-primary btn-mt12" id="btn-bc-new-empty"><span aria-hidden="true">➕</span> Nouveau bon</button>
+    <button type="button" class="btn btn-primary btn-mt12" id="btn-bc-new-empty"><span aria-hidden="true">${window.ICONS.plus}</span> Nouveau bon</button>
   </div>
 </div>`;
 }
@@ -481,11 +481,11 @@ function templatePageSettings() {
     <div><h1>Paramètres de l'Entreprise</h1></div>
     <div class="settings-header-actions" role="group" aria-label="Enregistrer ou annuler les paramètres">
       <button type="button" class="btn btn-secondary" id="btn-cancel-settings">Annuler</button>
-      <button type="button" class="btn btn-primary" id="btn-save-settings" aria-label="Enregistrer les paramètres"><span aria-hidden="true">💾</span> Sauvegarder</button>
+      <button type="button" class="btn btn-primary" id="btn-save-settings" aria-label="Enregistrer les paramètres"><span aria-hidden="true">${window.ICONS.save}</span> Sauvegarder</button>
     </div>
   </div>
   <div class="settings-section">
-    <div class="settings-section-header"><div class="settings-section-icon ssi-company" aria-hidden="true">🏢</div><div><div class="settings-section-title">Informations d'Entreprise</div></div></div>
+    <div class="settings-section-header"><div class="settings-section-icon ssi-company" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4 8 4v14"/><path d="M9 21v-6h6v6"/><path d="M10 9h4"/><path d="M10 13h4"/></svg></div><div><div class="settings-section-title">Informations d'Entreprise</div></div></div>
     <div class="settings-section-body">
       <div id="settings-score-bar" class="settings-score-bar"></div>
       <div class="field-row c2"><div class="form-group"><label for="s-name">Nom ou Raison Sociale</label><input id="s-name" name="settings-company-name" autocomplete="organization" placeholder="INVOO OFFICE SARL"></div><div class="form-group"><label for="s-email">Email</label><input id="s-email" name="settings-email" type="email" inputmode="email" autocomplete="email" placeholder="contact@entreprise.ma"></div></div>
@@ -494,13 +494,13 @@ function templatePageSettings() {
     </div>
   </div>
   <div class="settings-section">
-    <div class="settings-section-header"><div class="settings-section-icon ssi-bank" aria-hidden="true">🏦</div><div><div class="settings-section-title">Coordonnées Bancaires</div></div></div>
+    <div class="settings-section-header"><div class="settings-section-icon ssi-bank" aria-hidden="true">${window.ICONS.bank}</div><div><div class="settings-section-title">Coordonnées Bancaires</div></div></div>
     <div class="settings-section-body">
       <div class="field-row c3"><div class="form-group"><label for="s-bank">Banque</label><input id="s-bank" name="settings-bank" placeholder="Attijariwafa Bank"></div><div class="form-group"><label for="s-branch">Agence</label><input id="s-branch" name="settings-branch" placeholder="Agence Guéliz"></div><div class="form-group"><label for="s-rib">RIB <span class="settings-help-inline settings-help-inline-strong">(24 chiffres)</span></label><input id="s-rib" name="settings-rib" type="text" inputmode="numeric" autocomplete="off" maxlength="24" placeholder="000000000000000000000000" title="RIB marocain : 24 chiffres consécutifs (les espaces sont retirés automatiquement)."></div></div>
     </div>
   </div>
   <div class="settings-section">
-    <div class="settings-section-header"><div class="settings-section-icon ssi-legal" aria-hidden="true">🏛</div><div><div class="settings-section-title">Informations légales DGI</div></div></div>
+    <div class="settings-section-header"><div class="settings-section-icon ssi-legal" aria-hidden="true">${window.ICONS.government}</div><div><div class="settings-section-title">Informations légales DGI</div></div></div>
     <div class="settings-section-body">
       <div class="field-row c3">
         <div class="form-group"><label for="s-ice">ICE (Identifiant Commun de l'Entreprise)</label><input id="s-ice" name="settings-ice" placeholder="000000000000000" maxlength="15" pattern="\\d{15}" inputmode="numeric"></div>
@@ -525,7 +525,7 @@ function templatePageSettings() {
     </div>
   </div>
   <div class="settings-section">
-    <div class="settings-section-header"><div class="settings-section-icon ssi-seq" aria-hidden="true">🔢</div><div><div class="settings-section-title">Séquences de Numérotation</div></div></div>
+    <div class="settings-section-header"><div class="settings-section-icon ssi-seq" aria-hidden="true">${window.ICONS.hash}</div><div><div class="settings-section-title">Séquences de Numérotation</div></div></div>
     <div class="settings-section-body">
       <div class="grid-settings-4 settings-seq-grid">
         <div class="form-group"><label for="s-seq-f">Prochaine Facture</label><input id="s-seq-f" name="settings-seq-f" type="number" inputmode="numeric" placeholder="1"></div>
@@ -537,7 +537,7 @@ function templatePageSettings() {
     </div>
   </div>
   <div class="settings-section">
-    <div class="settings-section-header"><div class="settings-section-icon ssi-footer" aria-hidden="true">📄</div><div><div class="settings-section-title">Pied de Page (Footer)</div></div></div>
+    <div class="settings-section-header"><div class="settings-section-icon ssi-footer" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15.5 2H8a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L15.5 2z"/><polyline points="15 2 15 8 21 8"/><path d="M9 13h6"/><path d="M9 17h6"/></svg></div><div><div class="settings-section-title">Pied de Page (Footer)</div></div></div>
     <div class="settings-section-body">
       <label for="s-footer" class="sr-only">Texte du pied de page des documents</label>
       <textarea id="s-footer" name="settings-footer" rows="3" placeholder="Merci de votre confiance..."></textarea>
@@ -545,12 +545,12 @@ function templatePageSettings() {
   </div>
 
   <div class="settings-section">
-    <div class="settings-section-header"><div class="settings-section-icon ssi-logo" aria-hidden="true">🖼️</div><div><div class="settings-section-title">Logo de l'Entreprise</div></div></div>
+    <div class="settings-section-header"><div class="settings-section-icon ssi-logo" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div><div><div class="settings-section-title">Logo de l'Entreprise</div></div></div>
     <div class="settings-section-body">
       <div class="settings-logo-row">
         <div class="settings-logo-preview-wrap">
           <img id="logo-preview" src="" alt="Logo" class="settings-logo-preview">
-          <span id="logo-placeholder" class="settings-logo-placeholder" aria-hidden="true">🖼️</span>
+          <span id="logo-placeholder" class="settings-logo-placeholder" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></span>
         </div>
         <div class="settings-logo-actions">
           <label class="btn btn-secondary settings-logo-picker-btn">
@@ -585,12 +585,12 @@ function templatePageSettings() {
   </div>
 
   <div class="settings-section">
-    <div class="settings-section-header"><div class="settings-section-icon ssi-seal" aria-hidden="true">🔏</div><div><div class="settings-section-title">Cachet ou Tampon</div></div></div>
+    <div class="settings-section-header"><div class="settings-section-icon ssi-seal" aria-hidden="true">${window.ICONS.lock}</div><div><div class="settings-section-title">Cachet ou Tampon</div></div></div>
     <div class="settings-section-body">
       <div class="settings-seal-row">
         <div class="settings-seal-preview-wrap">
           <img id="seal-preview" src="" alt="Cachet" class="settings-seal-preview">
-          <span id="seal-placeholder" class="settings-seal-placeholder" aria-hidden="true">🔏</span>
+          <span id="seal-placeholder" class="settings-seal-placeholder" aria-hidden="true">${window.ICONS.lock}</span>
         </div>
         <div class="settings-seal-actions">
           <label class="btn btn-secondary settings-seal-picker-btn">
@@ -616,7 +616,7 @@ function templatePageSettings() {
     </div>
   </div>
   <div class="settings-section">
-    <div class="settings-section-header"><div class="settings-section-icon ssi-template" aria-hidden="true">🎨</div><div><div class="settings-section-title">Templates de Document PDF</div></div></div>
+    <div class="settings-section-header"><div class="settings-section-icon ssi-template" aria-hidden="true">${window.ICONS.palette}</div><div><div class="settings-section-title">Templates de Document PDF</div></div></div>
     <div class="settings-section-body">
 
       <!-- Template selector -->
@@ -635,7 +635,7 @@ function templatePageSettings() {
           </div>
           <div class="tpl-name">Classic</div>
           <div class="tpl-desc">En-tête coloré, lignes épurées</div>
-          <div class="tpl-active-badge" id="badge-classic"><span aria-hidden="true">✓</span> Actif</div>
+          <div class="tpl-active-badge" id="badge-classic"><span aria-hidden="true">${window.ICONS.checkCircle}</span> Actif</div>
         </div>
 
         <!-- Template 2 : Modern -->
@@ -654,7 +654,7 @@ function templatePageSettings() {
           </div>
           <div class="tpl-name">Modern</div>
           <div class="tpl-desc">Bicolore, typographie forte</div>
-          <div class="tpl-active-badge tpl-active-badge-hidden" id="badge-modern"><span aria-hidden="true">✓</span> Actif</div>
+          <div class="tpl-active-badge tpl-active-badge-hidden" id="badge-modern"><span aria-hidden="true">${window.ICONS.checkCircle}</span> Actif</div>
         </div>
 
         <!-- Template 3 : Minimal -->
@@ -671,7 +671,7 @@ function templatePageSettings() {
           </div>
           <div class="tpl-name">Minimal</div>
           <div class="tpl-desc">Sobre, noir & blanc</div>
-          <div class="tpl-active-badge tpl-active-badge-hidden" id="badge-minimal"><span aria-hidden="true">✓</span> Actif</div>
+          <div class="tpl-active-badge tpl-active-badge-hidden" id="badge-minimal"><span aria-hidden="true">${window.ICONS.checkCircle}</span> Actif</div>
         </div>
 
         <!-- Template 4 : Executive -->
@@ -687,14 +687,14 @@ function templatePageSettings() {
           </div>
           <div class="tpl-name">Executive</div>
           <div class="tpl-desc">Gradient violet, prestige</div>
-          <div class="tpl-active-badge tpl-active-badge-hidden" id="badge-executive"><span aria-hidden="true">✓</span> Actif</div>
+          <div class="tpl-active-badge tpl-active-badge-hidden" id="badge-executive"><span aria-hidden="true">${window.ICONS.checkCircle}</span> Actif</div>
         </div>
       </div>
 
       <!-- Couleur de bande personnalisable -->
       <div class="settings-band-box">
         <div class="settings-band-title">
-          <span aria-hidden="true">🎨</span> Couleur de la bande "Désignation / Qté / PU HT / Montant"
+          <span aria-hidden="true">${window.ICONS.palette}</span> Couleur de la bande "Désignation / Qté / PU HT / Montant"
         </div>
         <div class="settings-band-row">
           <div class="settings-band-inputs" role="group" aria-label="Couleur de la bande du tableau des lignes">
@@ -741,7 +741,7 @@ function templatePageSettings() {
   <!-- ══ LICENCE / ACTIVATION ══ -->
   <div class="settings-section">
     <div class="settings-section-header">
-      <div class="settings-section-icon settings-icon-activation" aria-hidden="true">🔑</div>
+      <div class="settings-section-icon settings-icon-activation" aria-hidden="true">${window.ICONS.key}</div>
       <div>
         <div class="settings-section-title">Licence &amp; appareil</div>
       </div>
@@ -754,7 +754,7 @@ function templatePageSettings() {
   <!-- ══ SYNC SUPABASE (OPTIONNEL) ══ -->
   <div class="settings-section settings-supabase-section">
     <div class="settings-section-header">
-      <div class="settings-section-icon settings-icon-supabase" aria-hidden="true">☁️</div>
+      <div class="settings-section-icon settings-icon-supabase" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg></div>
       <div>
         <div class="settings-section-title">Sync multi-appareils — Supabase</div>
       </div>
@@ -857,7 +857,7 @@ alter publication supabase_realtime add table public.invoo_rt_settings;</pre>
   <!-- ══ SAUVEGARDE & RESTAURATION ══ -->
   <div class="settings-section settings-backup-section">
     <div class="settings-section-header settings-backup-header">
-      <div class="settings-section-icon settings-icon-backup" aria-hidden="true">💾</div>
+      <div class="settings-section-icon settings-icon-backup" aria-hidden="true">${window.ICONS.save}</div>
       <div>
         <div class="settings-section-title settings-backup-title">Sauvegarde & Restauration</div>
       </div>
@@ -874,7 +874,7 @@ alter publication supabase_realtime add table public.invoo_rt_settings;</pre>
 
       <!-- Sauvegarde Portable -->
       <div class="settings-backup-portable">
-        <div class="settings-backup-block-title"><span aria-hidden="true">📦</span> Sauvegarde Portable</div>
+        <div class="settings-backup-block-title"><span aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg></span> Sauvegarde Portable</div>
         <div class="settings-backup-actions">
           <button type="button" class="btn btn-primary settings-icon-btn" id="btn-export-all">
             <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -887,7 +887,7 @@ alter publication supabase_realtime add table public.invoo_rt_settings;</pre>
           <input type="file" id="import-file" accept=".json" class="settings-file-hidden" aria-label="Choisir un fichier de sauvegarde JSON à importer (même format qu’Exporter Backup JSON)">
         </div>
         <div class="settings-backup-reminder-card">
-          <div class="settings-backup-reminder-title"><span aria-hidden="true">📅</span> Rappel mensuel</div>
+          <div class="settings-backup-reminder-title"><span aria-hidden="true">${window.ICONS.calendar}</span> Rappel mensuel</div>
           <div class="settings-backup-reminder-row">
             <label for="s-backup-monthly-day" class="settings-backup-reminder-label">Jour du mois (0–31)</label>
             <input type="number" id="s-backup-monthly-day" min="0" max="31" placeholder="0" class="settings-backup-reminder-input">
@@ -944,4 +944,31 @@ function injectAppPageTemplates() {
   el.innerHTML = buildAppPagesHtml();
 }
 
-injectAppPageTemplates();
+// Defer injection until window.ICONS is defined (loaded by assets/icons.js)
+// to prevent "Cannot read properties of undefined (reading 'save')" errors.
+function waitForIconsAndInject() {
+  if (typeof window.ICONS !== 'undefined') {
+    injectAppPageTemplates();
+  } else {
+    // Retry every 50ms until ICONS is available (max 2 seconds)
+    const startTime = Date.now();
+    const checkInterval = setInterval(() => {
+      if (typeof window.ICONS !== 'undefined') {
+        clearInterval(checkInterval);
+        injectAppPageTemplates();
+      } else if (Date.now() - startTime > 2000) {
+        clearInterval(checkInterval);
+        console.error('[page-templates] window.ICONS not available after 2s - icons may not render');
+        // Inject anyway to avoid blocking the app
+        injectAppPageTemplates();
+      }
+    }, 50);
+  }
+}
+
+// Start waiting when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', waitForIconsAndInject);
+} else {
+  waitForIconsAndInject();
+}

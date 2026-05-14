@@ -70,7 +70,16 @@ function h(tag, attrs, ...children) {
   for (const ch of children) {
     if (ch == null) continue;
     if (typeof ch === 'string' || typeof ch === 'number') {
-      e.appendChild(document.createTextNode(String(ch)));
+      const s = String(ch);
+      if (s.includes('<svg')) {
+        const wrapper = document.createElement('span');
+        wrapper.innerHTML = s;
+        while (wrapper.firstChild) {
+          e.appendChild(wrapper.firstChild);
+        }
+      } else {
+        e.appendChild(document.createTextNode(s));
+      }
     } else {
       e.appendChild(ch);
     }

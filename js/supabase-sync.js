@@ -373,7 +373,12 @@
       throw new Error('URL ou clé API manquante');
     }
     if (typeof supabase === 'undefined' || !supabase.createClient) {
-      throw new Error('Bibliothèque Supabase non chargée');
+      try {
+        await window.loadVendor('supabase.umd.js');
+      } catch (e) {
+        toast('Échec chargement librairie Supabase', 'err');
+        return;
+      }
     }
     const u = url.replace(/\/+$/, '');
     if (!u.startsWith('https://') || !u.includes('.supabase.co')) {
@@ -450,7 +455,7 @@
       await pullAll();
       await pushAllTables();
       updateSupabaseStatus('Connecté · synchronisé');
-      if (typeof toast === 'function') toast('Supabase : connecté et synchronisé ✓', 'suc');
+      if (typeof toast === 'function') toast('Supabase : connecté et synchronisé', 'suc');
     } catch (e) {
       console.error(e);
       stopRealtime(true);
@@ -469,7 +474,7 @@
       await pullAll();
       await pushAllTables();
       updateSupabaseStatus('Connecté · à jour');
-      if (typeof toast === 'function') toast('Synchronisation terminée ✓', 'suc');
+      if (typeof toast === 'function') toast('Synchronisation terminée', 'suc');
     } catch (e) {
       console.error(e);
       updateSupabaseStatus('Erreur sync');

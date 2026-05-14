@@ -315,10 +315,10 @@ function parseImportClientsFile(file) {
           if (r._exists) {
             bd.style.cssText =
               'background:rgba(240,165,0,0.15);color:#fbbf24;border:1px solid rgba(240,165,0,0.3)';
-            bd.textContent = '⚠️ Existe';
+            bd.innerHTML = window.ICONS.alertTriangle + ' Existe';
           } else {
             bd.className = 'badge paid';
-            bd.textContent = '✓ Nouveau';
+            bd.innerHTML = window.ICONS.checkCircle + ' Nouveau';
           }
           td0.appendChild(bd);
           const cells = [
@@ -435,7 +435,7 @@ function confirmImportClients() {
   let msg = `Import terminé : ${added} ajouté(s)`;
   if (updated) msg += `, ${updated} mis à jour`;
   if (skipped) msg += `, ${skipped} ignoré(s) (doublon)`;
-  toast(msg + ' ✓', 'suc');
+  toast(msg, 'suc');
 }
 
 function downloadClientsTemplate() {
@@ -450,7 +450,7 @@ function downloadClientsTemplate() {
   a.download = 'modele_import_clients.csv';
   a.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
-  toast('Modèle clients téléchargé ✓', 'suc');
+  toast('Modèle clients téléchargé', 'suc');
 }
 // ── Import en masse ──
 // ═══════════════════════════════════════════
@@ -708,10 +708,10 @@ function parseImportMasseFile(file) {
       if (r._dupInDB) {
         bd.style.cssText =
           'background:rgba(240,165,0,0.15);color:#fbbf24;border:1px solid rgba(240,165,0,0.3)';
-        bd.textContent = '⚠️ Existe';
+        bd.innerHTML = window.ICONS.alertTriangle + ' Existe';
       } else {
         bd.className = 'badge paid';
-        bd.textContent = '✓ Nouveau';
+        bd.innerHTML = window.ICONS.checkCircle + ' Nouveau';
       }
       td0.appendChild(bd);
       tr.appendChild(td0);
@@ -892,10 +892,10 @@ function confirmImportMasse() {
   if (updated) msg += `, ${updated} mis à jour`;
   if (skipped) msg += `, ${skipped} ignoré(s)`;
   if (errors) msg += `, ${errors} erreur(s)`;
-  toast(msg + ' ✓', 'suc');
+  toast(msg, 'suc');
   if (errorLines.length) {
     const preview = errorLines.slice(0, 4).join('<br>');
-    toast(`⚠️ Lignes ignorées :<br>${preview}${errorLines.length > 4 ? '<br>…' : ''}`, 'err');
+    toast(`Lignes ignorées :<br>${preview}${errorLines.length > 4 ? '<br>…' : ''}`, 'err');
   }
 }
 
@@ -909,7 +909,7 @@ function downloadImportTemplate() {
   a.download = 'modele_import_stock.csv';
   a.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
-  toast('Modèle téléchargé ✓', 'suc');
+  toast('Modèle téléchargé', 'suc');
 }
 
 // ════════════════════════════════════════

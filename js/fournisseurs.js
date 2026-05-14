@@ -81,7 +81,7 @@ function renderFournisseurs() {
   const pageRows = pg.rows;
 
   const scoreLabel = { A: 'Fiable', B: 'Correct', C: 'À surveiller' };
-  const scoreIcon = { A: '🟢', B: '🔵', C: '🟠' };
+  const scoreIcon = { A: window.ICONS.circle, B: window.ICONS.circle, C: window.ICONS.circle };
 
   clearChildren(grid);
   pageRows.forEach(f => {
@@ -99,7 +99,7 @@ function renderFournisseurs() {
     if (!iceDigits.length) {
       const sp = document.createElement('span');
       sp.className = 'client-ice-pill miss';
-      sp.textContent = '⚠ Sans ICE';
+      sp.innerHTML = window.ICONS.alertTriangle + ' Sans ICE';
       iceWrap.appendChild(sp);
     } else if (iceOk) {
       const sp = document.createElement('span');
@@ -118,9 +118,9 @@ function renderFournisseurs() {
       style:
         'display:flex;flex-direction:column;gap:5px;font-size:12px;color:var(--text2);margin-bottom:12px',
     });
-    if (f.email) detailsCol.appendChild(h('div', null, `✉️ ${f.email}`));
-    if (f.phone) detailsCol.appendChild(h('div', null, `📞 ${f.phone}`));
-    if (f.city) detailsCol.appendChild(h('div', null, `📍 ${f.city}`));
+    if (f.email) detailsCol.appendChild(h('div', null, window.ICONS.mail + ' ' + f.email));
+    if (f.phone) detailsCol.appendChild(h('div', null, window.ICONS.phone + ' ' + f.phone));
+    if (f.city) detailsCol.appendChild(h('div', null, window.ICONS.mapPin + ' ' + f.city));
     detailsCol.appendChild(iceWrap);
     if (f.notes) {
       detailsCol.appendChild(
@@ -131,7 +131,7 @@ function renderFournisseurs() {
               'font-style:italic;color:var(--text3);margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap',
             title: f.notes,
           },
-          `💬 ${f.notes}`,
+          window.ICONS.info + ' ' + f.notes,
         ),
       );
     }
@@ -139,7 +139,7 @@ function renderFournisseurs() {
     const scoreBadge = h(
       'span',
       { className: `fourn-score ${score}` },
-      `${scoreIcon[score] || '🔵'} ${scoreLabel[score] || 'Correct'}`,
+      `${scoreIcon[score] || window.ICONS.circle} ${scoreLabel[score] || 'Correct'}`,
     );
     const head = h(
       'div',
@@ -173,12 +173,12 @@ function renderFournisseurs() {
           'data-action': 'edit-fourn',
           'data-id': fid,
         },
-        '✏️ Modifier',
+        window.ICONS.edit + ' Modifier',
       ),
       h(
         'button',
         { className: 'btn btn-danger btn-sm', 'data-action': 'delete-fourn', 'data-id': fid },
-        '🗑',
+        window.ICONS.trash,
       ),
     );
 
@@ -320,7 +320,7 @@ function saveFourn() {
   save('fournisseurs');
   closeModal('modal-fourn');
   renderFournisseurs();
-  toast(_editFournId ? '✅ Fournisseur mis à jour' : '✅ Fournisseur ajouté', 'suc');
+  toast(_editFournId ? 'Fournisseur mis à jour' : 'Fournisseur ajouté', 'suc');
   _editFournId = null;
 
   // Rafraîchir la liste du select « Fournisseur » si le modal article est ouvert
@@ -344,7 +344,7 @@ async function deleteFourn(id) {
   const ok = await showConfirm({
     title: `Supprimer "${f.name}" ?`,
     message: 'Cette action est <strong>irréversible</strong>.',
-    icon: '🗑️',
+    icon: window.ICONS.trash,
     okLabel: 'Supprimer',
     okStyle: 'danger',
   });
@@ -413,7 +413,7 @@ function exportFournisseurs() {
   a.download = `fournisseurs_${new Date().toISOString().slice(0, 10)}.csv`;
   a.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
-  toast(`✅ Export CSV — ${list.length} fournisseur(s)`, 'suc');
+  toast(`Export CSV — ${list.length} fournisseur(s)`, 'suc');
 }
 
 // ════════════════════════════════════════
@@ -484,7 +484,7 @@ function downloadFournTemplate() {
   a.download = 'modele_import_fournisseurs.csv';
   a.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
-  toast('Modèle téléchargé ✓', 'suc');
+  toast('Modèle téléchargé', 'suc');
 }
 
 function buildFournImportRowsFromText(text) {
@@ -635,10 +635,10 @@ function parseImportFournFile(file) {
           } else if (r._status === 'dup') {
             badge.style.cssText =
               'background:rgba(240,165,0,0.15);color:#fbbf24;border:1px solid rgba(240,165,0,0.3)';
-            badge.textContent = '⚠️ Doublon';
+            badge.innerHTML = window.ICONS.alertTriangle + ' Doublon';
           } else {
             badge.classList.add('paid');
-            badge.textContent = '✓ Nouveau';
+            badge.innerHTML = window.ICONS.checkCircle + ' Nouveau';
           }
           td0.appendChild(badge);
           tr.appendChild(td0);
