@@ -489,6 +489,9 @@ function initThemedSelects(scope = document) {
     };
     const open = () => {
       wrap.classList.add('open');
+      const tr = trigger.getBoundingClientRect();
+      const spaceBelow = window.innerHeight - tr.bottom;
+      menu.style.maxHeight = (spaceBelow < 260 ? Math.max(120, spaceBelow - 10) : '') + 'px';
       const items = getItems();
       const activeIdx = items.findIndex(it => it.classList.contains('active'));
       setFocus(activeIdx >= 0 ? activeIdx : 0);
