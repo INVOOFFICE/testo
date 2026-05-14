@@ -197,6 +197,7 @@ function renderFournisseurs() {
     'fournisseurs',
     pg.total,
     pg.page,
+    pg.totalPages,
     pageSize,
     renderFournisseurs,
   );
