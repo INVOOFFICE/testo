@@ -350,6 +350,13 @@ function sbItem(pageId) {
   return document.querySelector(`.sb-item[data-page="${pageId}"]`);
 }
 function nav(id, el) {
+  const obOverlay = document.getElementById('onboarding-overlay');
+  if (obOverlay?.classList.contains('show')) {
+    obOverlay.classList.remove('show');
+    obOverlay.style.pointerEvents = 'none';
+    obOverlay.style.display = 'none';
+    obOverlay.setAttribute('aria-hidden', 'true');
+  }
   const prevPageId = document.querySelector('.page.active')?.id;
   // QUAL-04: si on quitte "history", revenir à la page 1 à l'entrée suivante
   try {

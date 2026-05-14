@@ -173,8 +173,9 @@
 ## 8. PATCH LOG
 
 | Date | Bug / Changement | Fichiers touchés | Risque | Rollback |
-|---|---|---|---|---|---|
-| 2026-05-14 | Rocket icon onboarding literal text | ui.js:1777-1779 | 🟢 | git revert HEAD |
+|---|---|---|---|---|---|---|
+| 2026-05-14 | Onboarding overlay blocks page interactions on nav | ui.js:352-359 | 🟢 | git revert HEAD |
+| 2026-05-14 | Rocket icon onboarding literal text | ui.js:1777-1779 | 🟢 | git revert HEAD~1 |
 | 2026-05-14 | Fournisseurs pagination NaN | fournisseurs.js:195-202 | 🟢 | git revert a2a6610 |
 | 2026-05-14 | Themed select viewport overflow | ui.js:open() | 🟢 | git revert 9448a8d |
 | 2026-05-14 | Autocomplete viewport overflow | doc-lines.js:248-250,311-313 | 🟢 | git revert 510c70e |
