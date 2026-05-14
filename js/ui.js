@@ -1774,8 +1774,9 @@ function renderObStep(step) {
   setStaticHtml(document.getElementById('ob-body'), s.html);
   document.getElementById('ob-progress-fill').style.width =
     `${((step + 1) / OB_STEPS.length) * 100}%`;
-  document.getElementById('ob-next-btn').textContent =
-    step === OB_STEPS.length - 1 ? '${window.ICONS.rocket} Créer ma première facture' : 'Continuer →';
+  // eslint-disable-next-line no-restricted-syntax -- ICONS SVG known safe (icônes internes)
+  document.getElementById('ob-next-btn').innerHTML =
+    step === OB_STEPS.length - 1 ? `${window.ICONS.rocket} Créer ma première facture` : 'Continuer →';
   document.querySelectorAll('.ob-step-dot').forEach((d, i) => {
     d.classList.toggle('active', i === step);
     d.classList.toggle('done', i < step);
