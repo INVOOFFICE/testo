@@ -524,6 +524,16 @@
 .btn-gap-sm {
   gap: 8px;
 }
+.modal-convert .conv-option > div {
+  flex: 1;
+}
+.modal-convert .conv-option input[type='radio'],
+.modal-convert .conv-option input[type='checkbox'] {
+  width: auto;
+}
+.conv-custom-date-input {
+  max-width: 100%;
+}
 .pdf-spinner-overlay {
   display: none;
   position: fixed;

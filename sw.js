@@ -4,7 +4,7 @@
 // ═══════════════════════════════════════════
 
 /** Nom du cache statique — incrémenter (ex. invo-v3) pour invalider tout le précache. */
-const CACHE_NAME = 'invo-v18';
+const CACHE_NAME = 'invo-v20';
 /** Mettre à true uniquement en dev : logs fetch dans networkFirstNoCache */
 const SW_DEBUG = false;
 

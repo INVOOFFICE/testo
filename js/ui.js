@@ -240,13 +240,23 @@ function closeModal(id) {
   if (el) {
     el.classList.remove('open');
     if (el.getAttribute('role') === 'dialog') el.setAttribute('aria-hidden', 'true');
+    const prev = el._previousFocus;
+    if (prev && typeof prev.focus === 'function') {
+      try { prev.focus(); } catch (_) {}
+    }
+    delete el._previousFocus;
   }
 }
 function openModal(id) {
   const el = document.getElementById(id);
   if (el) {
+    el._previousFocus = document.activeElement;
     el.classList.add('open');
     if (el.getAttribute('role') === 'dialog') el.setAttribute('aria-hidden', 'false');
+    requestAnimationFrame(() => {
+      const first = el.querySelector('button, input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      if (first) try { first.focus(); } catch (_) {}
+    });
   }
 }
 

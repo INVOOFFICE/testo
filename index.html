@@ -938,9 +938,8 @@
         </div>
       </div>
 
-      <!-- Options -->
+      <div style="display:none"><!-- Options (hidden — kept for JS compatibility) -->
       <div class="conv-options-title">Options</div>
-
       <label class="conv-option selected" id="conv-opt-date-wrap">
         <input type="radio" name="conv-date-opt" id="conv-date-today" value="today" checked>
         <div>
@@ -955,9 +954,7 @@
           <input type="date" id="conv-custom-date" class="conv-custom-date-input">
         </div>
       </label>
-
       <div class="conv-divider"></div>
-
       <label class="conv-option selected conv-option-static">
         <input type="checkbox" id="conv-keep-devis" checked class="conv-keep-checkbox">
         <div>
@@ -965,6 +962,7 @@
           <div class="conv-option-desc">Le devis original reste accessible en historique avec le lien vers la facture</div>
         </div>
       </label>
+      </div>
 
       <!-- Récap montant -->
       <div class="conv-recap-box">

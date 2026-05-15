@@ -179,6 +179,16 @@
 | 2026-05-14 | Fournisseurs pagination NaN | fournisseurs.js:195-202 | 🟢 | git revert a2a6610 |
 | 2026-05-14 | Themed select viewport overflow | ui.js:open() | 🟢 | git revert 9448a8d |
 | 2026-05-14 | Autocomplete viewport overflow | doc-lines.js:248-250,311-313 | 🟢 | git revert 510c70e |
+| 2026-05-15 | Conversion modal — radio/checkbox width:100% causes vertical text | surfaces-doc.css:530-533 | 🟢 | git checkout -- css/pages/surfaces-doc.css |
+| 2026-05-15 | Conversion modal — simplify UI, hide options section | index.html:941-965 | 🟢 | git checkout -- index.html |
+| 2026-05-15 | Price mode sync — themed select not updating visually | doc-lines.js:76,85 | 🟢 | git checkout -- js/docs/doc-lines.js |
+| 2026-05-16 | Post-save bar GPU compositing corruption on mobile Chrome | post-save-bar.js:89,159 | 🟢 | git revert HEAD |
+| 2026-05-16 | Z-index master scale documentation + remove dead CSS vars | tokens.css, layout-shell.css:68-72 | 🟢 | git revert HEAD~1 |
+| 2026-05-16 | Autocomplete dropdown flip-up when viewport space insufficient | doc-lines.js:191-194,252-263,315-326 | 🟢 | git revert HEAD~2 |
+| 2026-05-16 | Modal focus save/restore (accessibility) | ui.js:238-260 | 🟢 | git revert HEAD~3 |
+| 2026-05-16 | CACHE_NAME bumped to invo-v19 | sw.js:7 | 🟢 | git checkout -- sw.js |
+| 2026-05-16 | Mobile PWA GPU compositing corruption — remove backdrop-filter from off-screen sidebar + add contain:content to #content | responsive.css:33-81 | 🟢 | git checkout -- css/pages/responsive.css |
+| 2026-05-16 | CACHE_NAME bumped to invo-v20 | sw.js:7 | 🟢 | git checkout -- sw.js |
 
 <!-- Remplir au fil des modifications. Modèle :
 | 2026-05-14 | Null ref calcTotals | totals.js:131-137 | 🟡 | git revert abc123 |

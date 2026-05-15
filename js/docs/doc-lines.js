@@ -73,6 +73,7 @@ export function initDocPriceModeForNewDoc() {
   docsCtx.getAPP().docPriceMode = docsCtx.getGlobalPriceMode();
   const sel = document.getElementById('doc-price-mode');
   if (sel) sel.value = docsCtx.getAPP().docPriceMode;
+  docsCtx.refreshThemedSelect('doc-price-mode');
   refreshDocPriceModeLabels();
 }
 
@@ -81,6 +82,7 @@ export function loadDocPriceModeFromSaved(d) {
   docsCtx.getAPP().docPriceMode = fromDoc || docsCtx.getGlobalPriceMode();
   const sel = document.getElementById('doc-price-mode');
   if (sel) sel.value = docsCtx.getAPP().docPriceMode;
+  docsCtx.refreshThemedSelect('doc-price-mode');
   refreshDocPriceModeLabels();
 }
 
@@ -188,6 +190,8 @@ export function renderDocLines() {
     let acFocusIdx = -1;
     const closeAC = () => {
       dropdown.classList.remove('open');
+      dropdown.style.top = '';
+      dropdown.style.bottom = '';
       acFocusIdx = -1;
     };
     const markAc = 'background:rgba(26,107,60,.15);color:var(--brand);border-radius:2px';
@@ -247,7 +251,16 @@ export function renderDocLines() {
         dropdown.appendChild(libre);
         dropdown.classList.add('open');
         const _acR = acWrap.getBoundingClientRect();
-        dropdown.style.maxHeight = Math.min(280, Math.max(120, window.innerHeight - _acR.bottom - 10)) + 'px';
+        const _spaceBelow = window.innerHeight - _acR.bottom;
+        if (_spaceBelow < 200) {
+          dropdown.style.top = 'auto';
+          dropdown.style.bottom = 'calc(100% + 5px)';
+          dropdown.style.maxHeight = Math.min(280, Math.max(120, _acR.top - 10)) + 'px';
+        } else {
+          dropdown.style.top = '';
+          dropdown.style.bottom = '';
+          dropdown.style.maxHeight = Math.min(280, Math.max(120, _spaceBelow - 10)) + 'px';
+        }
         return;
       }
       if (!results.length) {
@@ -310,7 +323,16 @@ export function renderDocLines() {
       }
       dropdown.classList.add('open');
       const _acR = acWrap.getBoundingClientRect();
-      dropdown.style.maxHeight = Math.min(280, Math.max(120, window.innerHeight - _acR.bottom - 10)) + 'px';
+      const _spaceBelow = window.innerHeight - _acR.bottom;
+      if (_spaceBelow < 200) {
+        dropdown.style.top = 'auto';
+        dropdown.style.bottom = 'calc(100% + 5px)';
+        dropdown.style.maxHeight = Math.min(280, Math.max(120, _acR.top - 10)) + 'px';
+      } else {
+        dropdown.style.top = '';
+        dropdown.style.bottom = '';
+        dropdown.style.maxHeight = Math.min(280, Math.max(120, _spaceBelow - 10)) + 'px';
+      }
     };
     name.addEventListener('input', e => {
       l.name = e.target.value;

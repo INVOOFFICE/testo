@@ -1,4 +1,23 @@
 /* Design tokens — Premium Light SaaS */
+
+/* ── Z-INDEX MASTER SCALE (single source of truth) ──
+   Level  Value  Element                      File
+   ──────────────────────────────────────────────────────────────────
+   99999   —      #boot-spinner (inline)       index.html
+    9999   —      #toast                        app-chrome.css
+    3000   —      .pdf-spinner-overlay          surfaces-doc.css
+    2000   —      #onboarding-overlay           panels-charts-domain.css
+    1801   —      #search-panel                 help-search-skeleton.css
+    1800   —      #search-backdrop              help-search-skeleton.css
+    1000   —      .modal-overlay                 components-core.css
+     900   —      #notif-panel                  panels-charts-domain.css
+     700   —      .tselect-menu                  tables-widgets.css
+     600   —      .ac-dropdown                   app-chrome.css
+     800   —      post-save-bar (fixed)          post-save-bar.js
+     110   —      #mob-fab, #mob-actions-sheet   templates-mobile-static.css
+      99   —      #sidebar-overlay, #mob-tabbar  layout-shell.css / responsive.css
+      80   —      #topbar (mobile sticky)        responsive.css
+   ────────────────────────────────────────────────────────────────── */
 :root {
   /* ── Surface Colors ── */
   --bg: #F5F7FB;
