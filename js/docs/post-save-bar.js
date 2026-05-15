@@ -86,7 +86,7 @@ export function showPostSaveActions(doc, stockDeductedCount = 0) {
     window.editDocFromHistory(id);
   });
   bar.querySelector('[data-action="ps-close"]')?.addEventListener('click', closePostSaveBar);
-  document.getElementById('main').appendChild(bar);
+  document.body.appendChild(bar);
   bar._timer = setTimeout(closePostSaveBar, 12000);
 }
 
@@ -156,6 +156,6 @@ export function showConvertSuccessBar(invoice, sourceDevis) {
     closePostSaveBar();
   });
   bar.querySelector('[data-action="ps-close"]')?.addEventListener('click', closePostSaveBar);
-  document.getElementById('main').appendChild(bar);
+  document.body.appendChild(bar);
   bar._timer = setTimeout(closePostSaveBar, 15000);
 }
